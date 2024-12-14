@@ -1,0 +1,13 @@
+{
+  "user": [
+    "",
+    "bp_auth",
+    "bp_basket"
+  ],
+  "admin": [
+    "",
+    "bp_auth",
+    "bp_queries",
+    "bp_reports"
+  ]
+}

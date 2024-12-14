@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ввод параметров поиска</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='index.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+  {% import 'components.html' as components %}
+          <div class="items">
+              <center>
+              {% if not items %}
+                  <h1>Нет товаров по вашим требованиям</h1>
+              {% else %}
+                  {{ components.render_content(items=items) }}
+              {% endif %}
+              </center>
+          </div>
+          <div class="basket">
+              <center>
+                  <h2>Корзина</h2>
+                  {% if basket_items %}
+                      {{ components.render_basket(items=basket_items) }}
+                        <div>
+                      <a href="{{ url_for('bp_basket.order') }}" class="button-buy make">Оформить заказ</a>
+                      </div>
+                      <div>
+                          <a href="{{ url_for('bp_basket.clear_basket') }}">Очистить корзину</a>
+                      </div>
+                  {% else %}
+                      <p>Ваша корзина пуста</p>
+                  {% endif %}
+                  <div class="col-md-2">
+          </div>
+              </center>
+          </div>
+
+    <div class="buttons-menu">
+        <a href="{{ url_for('home_page') }}"><button class="button-menu"> На главную </button></a>
+    </div>
+</center>
+</body>
+</html>

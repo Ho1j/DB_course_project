@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать отчёт</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='create.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+  <center>
+    <h2>Создать отчёт по всем заказам за заданный месяц и год</h2>
+    <form action="" method=POST>
+        <div class="form-item">
+            <label for="date">Дата начала периода: </label>
+            <input type="date" id="date_start" name="date_start"/>
+        </div>
+        <div class="form-item">
+            <label for="date">Дата конца периода: </label>
+            <input type="date" id="date_end" name="date_end"/>
+        </div>
+        <button class="button-search" type="submit">Создать отчёт</button>
+    </form>
+    <div class="buttons-menu">
+        <a href="{{ url_for('bp_reports.reports_choice') }}"><button class="button-menu"> Назад </button></a>
+        <a href="{{ url_for('home_page') }}"><button class="button-menu"> На главную </button></a>
+    </div>
+  </center>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

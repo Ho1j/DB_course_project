@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Работа с отчётами</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='reports_choice.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+    <center>
+        <h2>Выберите отчёт</h2>
+        {% for rep in reports %}
+            <div class="report-item">
+                <hr>
+                <p>{{ rep['name'] }}</p>
+                <div class="buttons-reports">
+                    <a href="{{ url_for('bp_reports.create_' ~ rep['id']) }}"><button>создать</button></a>
+                    <a href="{{ url_for('bp_reports.view_' ~ rep['id']) }}"><button>посмотреть</button></a>
+                </div>
+                <hr>
+            </div>
+        {% endfor %}
+        <div class="buttons-menu">
+            <a href="{{ url_for('home_page') }}"><button>На главную</button></a>
+      </div>
+    </center>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

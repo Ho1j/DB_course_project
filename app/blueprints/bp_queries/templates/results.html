@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Supermarket</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='results.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <h2> {{ prod_title }}</h2>
+    <p>
+        {% if products %}
+            <table border="1">
+            <tr>
+                <th class="table-head-item"></th>
+                <th class="table-head-item">Название</th>
+                <th class="table-head-item">Цена</th>
+                <th class="table-head-item">Единица цены</th>
+            </tr>
+            {% for product in products %}
+            <tr>
+                {% if products_imgs[product['prod_name']] %}
+                    <td><img src="{{ url_for('.static', filename='/imgs/'+products_imgs[product['prod_name']]) }}" class="prod-img"></td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                <td class="prod-name">{{ product['prod_name'] }}</td>
+                <td>{{ product['prod_price'] }}</td>
+                <td>{{ product['prod_measure'] }}</td>
+            </tr>
+            {% endfor %}
+            </table>
+        {% else %}
+            Продукты не нашлись. Попробуйте другие фильтры
+        {% endif %}
+    </p>
+
+    <div class="buttons-menu">
+        {% if page == 'input_market' %}
+            <a href="{{ url_for('bp_queries.input_market') }}"><button class="button-menu"> Назад </button></a>
+        {% else %}
+            <a href="{{ url_for('bp_queries.input_price') }}"><button class="button-menu"> Назад </button></a>
+        {% endif %}
+        <a href="{{ url_for('home_page') }}"><button class="button-menu"> На главную </button></a>
+    </div>
+</center>
+</body>
+</html>

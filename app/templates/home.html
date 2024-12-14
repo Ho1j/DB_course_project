@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главное Меню</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='home.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+
+  <div class="logo">
+      <h2> Интернет-супермаркет </h2>
+  </div>
+  <center>
+      <div class="buttons-menu">
+          <a href="{{ url_for('bp_auth.logout') }}"><button>Выйти</button></a>
+          {% if group_name == "user" %}
+            <a href="{{ url_for('bp_basket.basket_index') }}"><button class="search">Сделать заказ</button></a>
+          {% elif group_name == "admin" %}
+          <a href="{{ url_for('bp_queries.search_choice') }}"><button class="search">Работа с запросами</button></a>
+          <a href="{{ url_for('bp_reports.reports_choice') }}"><button class="search">Работа с отчётами</button></a>
+          {% endif %}
+      </div>
+  </center>
+</body>
+</html>

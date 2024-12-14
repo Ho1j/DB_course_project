@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказ</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='index.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <center>
+  <h2>Вы оформили заказ на {{ sum }} рублей</h2>
+  <div class="buttons-menu">
+        <a href="{{ url_for('bp_basket.basket_index') }}"><button class="button-menu"> Назад </button></a>
+        <a href="{{ url_for('home_page') }}"><button class="button-menu"> На главную </button></a>
+    </div>
+    </center>
+</body>
+</html>

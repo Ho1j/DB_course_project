@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ввод параметров поиска</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='index.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+
+{% macro render_filter() %}
+<div>
+    <form id="filter-form">
+        <div class="select-category-container">
+            <label for="categories">Фильтр по категориям</label>
+            <div>
+                <select id="categories" form="filter-form" name="category">
+                    <option value="all">Все</option>
+                    <option value="clothes">Одежда</option>
+                    <option value="food">Еда</option>
+                </select>
+            </div>
+        </div>
+        <input type="submit" value="Применить" class="apply-filter-button">
+    </form>
+</div>
+{% endmacro %}
+
+
+{% macro render_content(items) %}
+<div class="wrapper box">
+    <h2>Ассортимент продуктов</h2>
+    <hr>
+    {% for item in items %}
+    <div class="item">
+            <div> {{ item["name"] }}, {{ item["price"] }} рублей</div>
+            <form action="" method="post">
+                <input type="hidden" name="prod_id" value="{{ item['prod_id'] }}">
+                <input type="submit" value="Купить" class="button-buy">
+            </form>
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+
+{% macro render_basket(items) %}
+<div>
+    {% for _, item_data in items.items() %}
+    <div class="basket-item">
+        <div>
+            <div> {{ item_data["name"] }}, {{ item_data["price"] }} рублей
+                    Штук: </span>{{ item_data["amount"] }}
+            </div>
+            <hr>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endmacro %}
+  </center>
+</body>
+</html>
