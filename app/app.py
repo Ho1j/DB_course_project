@@ -30,10 +30,7 @@ provider = SQL_Provider('sql/')
 @app.route('/')
 @auth_required
 def home_page():
-    if session['group_name'] == 'user':
-        return render_template('home.html', group_name=session['group_name'])
-    if session['group_name'] == 'admin':
-        return render_template('admin.html', group_name=session['group_name'])
+    return render_template('account.html', group_name=session['group_name'])
 
 if __name__ == '__main__':
     app.run(host = '127.0.0.1', port = 5003, debug = True)
