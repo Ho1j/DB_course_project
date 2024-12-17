@@ -12,7 +12,7 @@ from sql_provider import SQL_Provider
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
-app.config['DB_CONFIG'] = json.load(open('configs/db_config.json'))
+app.config['DB_CONFIG'] = json.load(open('configs/db_config_win.json'))
 app.config['ACCESS_CONFIG'] = json.load(open('configs/access.json'))
 app.config['CACHE_CONFIG'] = json.load(open('configs/cache.json'))
 
