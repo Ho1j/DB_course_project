@@ -1,29 +1,47 @@
-h2 {
-    font-family: Cochin;
-    font-size: 60px;
+main {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
 }
 
-.logo {
+.buttons-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.buttons-container h2 {
     text-align: center;
-    margin: auto;
+    margin-bottom: 20px;
 }
 
-.logo-img{
-    width: 100px;
-    margin: auto;
+
+.buttons-container a {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-a {
-    text-decoration: none;
-    color: black;
+.buttons-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.search {
-    font-size: 17px;
-    width: 200px;
-
+.buttons-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
-.buttons {
-    text-align: center;
+.buttons-container button:hover {
+    background-color: #005bb5;
 }
