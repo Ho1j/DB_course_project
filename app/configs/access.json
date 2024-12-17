@@ -1,11 +1,18 @@
 {
   "user": [
-    "",
-    "bp_auth",
     "bp_basket"
   ],
+  "cashier": [
+    "bp_auth",
+    "bp_queries",
+    "bp_reports"
+  ],
+  "manager": [
+    "bp_auth",
+    "bp_queries",
+    "bp_reports"
+  ],
   "admin": [
-    "",
     "bp_auth",
     "bp_queries",
     "bp_reports"
