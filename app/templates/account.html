@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='home.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+
+    <header>
+        <div class="container">
+            <div class="logo-title">
+                <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                <h1>Авиабилеты Онлайн</h1>
+            </div>
+            <a href="{{ url_for('bp_auth.logout') }}"><button>Выйти</button></a>
+        </div>
+    </header>
+
+    <main>
+        <div class="buttons-container">
+            <h2>Меню действий</h2>
+            {% if group_name == "user" %}
+            <a href="{{ url_for('bp_basket.basket_index') }}"><button>Купить авиабилеты</button></a>
+            <a href="{{ url_for('bp_queries.search_choice') }}"><button>Мои авиабилеты</button></a>
+            {% elif group_name == "admin" %}
+            <a href="{{ url_for('bp_queries.search_choice') }}"><button>Работа с запросами</button></a>
+            <a href="{{ url_for('bp_reports.reports_choice') }}"><button>Работа с отчётами</button></a>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
