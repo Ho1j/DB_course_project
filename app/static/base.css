@@ -1,88 +1,59 @@
-/* Base styles for classic design */
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+* {
     margin: 0;
     padding: 0;
-}
-
-h1, h2, h3 {
-    color: #003366;
-    margin-bottom: 20px;
-}
-
-a {
-    color: #003366;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-button, input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-button:hover, input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-input[type="text"], input[type="password"], select, textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 15px;
     box-sizing: border-box;
 }
 
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-.wrapper {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+header {
+    background-color: #0073e6;
+    color: white;
+    padding: 15px 0;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
 }
 
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+header .logo-title {
+    display: flex;
+    align-items: center;
 }
 
-table th {
-    background-color: #f4f4f9;
-    color: #003366;
+header img {
+    height: 50px;
+    width: auto;
+    margin-right: 10px;
 }
 
-hr {
-    border: 1px solid #ddd;
-    margin: 20px 0;
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header button {
+    background-color: white;
+    color: #0073e6;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+header button:hover {
+    background-color: #e6f0ff;
 }
 
 .flash-messages {
@@ -98,28 +69,25 @@ hr {
 }
 
 .flash-message {
-    padding: 15px 25px; /* Отступы вокруг текста */
-    border-radius: 10px; /* Закругленные углы */
-    font-size: 16px; /* Размер текста */
-    text-align: center; /* Выравнивание текста по центру */
-    white-space: nowrap; /* Сообщение в одну строку */
-    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный фон */
-    color: #fff; /* Белый текст */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для красоты */
-    max-width: 90%; /* Ограничение ширины */
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
 }
 
-/* Стили для разных категорий */
 .flash-message.error {
-    background-color: rgba(255, 0, 0, 0.8); /* Красный фон для ошибок */
+    background-color: rgba(255, 0, 0, 0.8);
 }
 
 .flash-message.success {
-    background-color: rgba(0, 128, 0, 0.8); /* Зеленый фон для успеха */
+    background-color: rgba(0, 128, 0, 0.8);
 }
 
 .flash-message.info {
-    background-color: rgba(0, 0, 255, 0.8); /* Синий фон для информации */
+    background-color: rgba(0, 0, 255, 0.8);
 }
-
-
