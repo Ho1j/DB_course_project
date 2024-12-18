@@ -32,4 +32,4 @@ def register_page():
         execute_and_fetch(current_app.config['DB_CONFIG'], sql)
 
         flash('Вы успешно зарегистрировались!', 'success')
-        return redirect(url_for('bp_auth.login_page'))
+        return redirect(url_for('bp_auth.user_login'))
