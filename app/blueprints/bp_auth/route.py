@@ -35,7 +35,8 @@ def staff_login():
     else:
         login = request.form.get('login')
         password = request.form.get('password')
-        sql = provider.get_sql('auth.sql', login=login)
+        sql = provider.get_sql('internal_auth.sql', login=login)
+        print(sql)
         result = execute_and_fetch(current_app.config['DB_CONFIG'], sql)
         if not result:
             flash('Пользователь не найден', 'error')
