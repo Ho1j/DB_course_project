@@ -2,33 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Авторизация</title>
+    <title>Авиабилеты Онлайн</title>
     <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('.static', filename='auth.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    {% with messages = get_flashed_messages(with_categories=True) %}
-            {% for category, message in messages %}
-                    <div class="{{ category }}">{{ message }}</div>
-            {% endfor %}
-    {% endwith %}
-  <center>
-    <h2>Введите логин и пароль</h2>
-    <form action="" method=POST>
-        <div class="form-item">
-            <label for="login">Логин</label>
-            <input type="text" name="login" id="login" required>
-        </div>
-        <div class="form-item">
-            <label for="password">Пароль</label>
-            <input type="password" name="password" id="password" required>
-        </div>
-        <button class="button-login" type="submit">Войти</button>
-    </form>
-
-    <div class="buttons-menu">
-        <a href="{{ url_for('bp_reg.register_page') }}"><button class="button-menu"> Регистрация </button></a>
-    </div>
-</center>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endwith %}
+        <header>
+            <div class="container">
+                <div class="logo-title">
+                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                    {% if login_type == "staff" %}
+                    <h1>Авиабилеты Онлайн (вход сотрудника)</h1>
+                    {% else %}
+                    <h1>Авиабилеты Онлайн</h1>
+                    {% endif %}
+                </div>
+                <a href="{{ url_for('bp_reg.register_page') }}"><button>Регистрация</button></a>
+            </div>
+        </header>
+        <main>
+            <div class="form-header">
+                <h2>Вход</h2>
+            </div>
+            <form action="" method=POST class="login-form">
+                <div class="form-item">
+                    <label for="login">Логин</label>
+                    <input type="text" name="login" id="login" required>
+                </div>
+                <div class="form-item">
+                    <label for="password">Пароль</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <button class="button-login" type="submit">Войти</button>
+            </form>
+        </main>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
 </body>
 </html>
