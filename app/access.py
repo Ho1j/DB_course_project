@@ -17,10 +17,10 @@ def auth_required(f):
         if 'login' in session:
             return f(*args, **kwargs)
         else:
-            if request.endpoint == 'bp_auth.login_page':
+            if request.endpoint == 'bp_auth.user_login':
                 return f(*args, **kwargs)
             flash('Необходимо авторизоваться', 'error')
-            return redirect(url_for('bp_auth.login_page'))
+            return redirect(url_for('bp_auth.user_login'))
             # flash('Необходимо авторизоваться', 'error')
             # return redirect(url_for('bp_auth.login_page'))
     return wrapper
