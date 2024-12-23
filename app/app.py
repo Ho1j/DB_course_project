@@ -5,9 +5,11 @@ from blueprints.bp_auth.route import bp_auth
 from blueprints.bp_reg.route import bp_reg
 from blueprints.bp_reports.route import bp_reports
 from blueprints.bp_basket.route import bp_basket
+from blueprints.bp_search.route import bp_search
+
 
 from access import auth_required, group_required
-from sql_provider import SQL_Provider
+from sql_provider import SqlProvider
 
 
 app = Flask(__name__)
@@ -21,10 +23,12 @@ app.register_blueprint(bp_auth, url_prefix='/auth')
 app.register_blueprint(bp_reports, url_prefix='/reports')
 app.register_blueprint(bp_basket, url_prefix='/basket')
 app.register_blueprint(bp_reg, url_prefix='/registration')
+app.register_blueprint(bp_search, url_prefix='/search')
 
 
 
-provider = SQL_Provider('sql/')
+
+provider = SqlProvider('sql/')
 
 
 @app.route('/')

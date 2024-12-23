@@ -31,7 +31,7 @@
             </div>
             <div class="buttons-container">
                 {% if group_name == "user" %}
-                <a href="{{ url_for('bp_basket.basket_index') }}"><button>Купить авиабилеты</button></a>
+                <a href="{{ url_for('bp_search.search_tickets') }}"><button>Купить авиабилеты</button></a>
                 <a href="{{ url_for('bp_queries.search_choice') }}"><button>Мои авиабилеты</button></a>
                 {% elif group_name == "admin" %}
                 <a href="{{ url_for('bp_queries.search_choice') }}"><button>Работа с запросами</button></a>
