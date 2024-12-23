@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, current_app, session, redirect, url_for
 from db_utils import execute_and_fetch
-from sql_provider import SQL_Provider
+from sql_provider import SqlProvider
 import json
 import access
 
 
 bp_queries = Blueprint('bp_queries', __name__, template_folder='templates', static_folder='static')
-provider = SQL_Provider('./sql')
+provider = SqlProvider('./sql')
 with open('blueprints/bp_queries/static/imgs/products.json') as f:
     products_imgs = json.load(f)
 

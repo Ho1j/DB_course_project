@@ -3,12 +3,12 @@ from datetime import datetime
 
 from flask import Blueprint, render_template, request, current_app, session, redirect, flash, url_for
 from db_utils import execute_and_fetch
-from sql_provider import SQL_Provider
+from sql_provider import SqlProvider
 import access
 
 
 bp_reports = Blueprint('bp_reports', __name__, template_folder='templates', static_folder='static')
-provider = SQL_Provider('./sql')
+provider = SqlProvider('./sql')
 
 reports = [{'id': 1, 'name': 'Все заказы за месяц и год'}]
 

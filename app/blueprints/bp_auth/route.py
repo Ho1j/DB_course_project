@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, request, current_app, session, flash, redirect, url_for
 from werkzeug.security import check_password_hash
 from db_utils import execute_and_fetch
-from sql_provider import SQL_Provider
+from sql_provider import SqlProvider
 
 
 bp_auth = Blueprint('bp_auth', __name__, template_folder='templates', static_folder='static')
-provider = SQL_Provider('./sql')
+provider = SqlProvider('./sql')
 
 
 @bp_auth.route('/', methods=['GET', 'POST'])

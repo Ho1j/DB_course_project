@@ -6,13 +6,13 @@ from flask import (
 
 from db_connect import DB_Context_Manager
 from db_utils import execute_and_fetch
-from sql_provider import SQL_Provider
+from sql_provider import SqlProvider
 from cache.wrapper import fetch_from_cache
 import access
 
 
 bp_basket = Blueprint('bp_basket', __name__, template_folder='templates', static_folder='static')
-provider = SQL_Provider('./sql')
+provider = SqlProvider('./sql')
 
 
 @bp_basket.route('/', methods=['GET', 'POST'])
