@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endwith %}
+
+        <header>
+            <div class="container">
+                <div class="logo-title">
+                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                    <h1>Авиабилеты Онлайн</h1>
+                </div>
+                {% if user_id %}
+                    <a href="{{ url_for('bp_auth.logout') }}"><button>Аккаунт</button></a>
+                {% else %}
+                    <a href="{{ url_for('bp_auth.user_login') }}"><button>Войти</button></a>
+                {% endif %}
+            </div>
+        </header>
+
+        <main>
+            <div class="form-header">
+                <h2>Добро пожаловать на наш сайт!</h2>
+            </div>
+            <div class="welcome">
+                <p>Ищете удобный способ купить авиабилеты? Вы находитесь в правильном месте. Здесь вы можете:</p>
+                <ul>
+                    <li>Найти доступные рейсы по всему миру.</li>
+                    <li>Забронировать билеты за несколько минут.</li>
+                    <li>Управлять своими заказами через личный кабинет.</li>
+                </ul>
+            </div>
+        </main>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>
