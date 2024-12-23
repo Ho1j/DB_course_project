@@ -1,4 +1,5 @@
 SELECT
+    schedule_id,
     f.flight_number,
     dep_airport.airport_name AS departure_airport,
     dep_airport.city AS departure_city,

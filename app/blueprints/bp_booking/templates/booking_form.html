@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='booking-form.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+
+
+        <header>
+            <div class="container">
+                <div class="logo-title">
+                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                    <h1>Paperplane Airlines</h1>
+                </div>
+                <a href="{{ url_for('bp_auth.logout') }}"><button>Выйти</button></a>
+            </div>
+        </header>
+
+        <main>
+            <div class="form-header">
+                <h2>Бронирование билетов</h2>
+            </div>
+            <form action="{{ url_for('bp_booking.create_booking') }}" method="POST" class="booking-form">
+                {% for passenger in range(1, quantity | int + 1) %}
+                <div class="form-container">
+                    <h2>Пасссажир №{{ passenger }}</h2>
+                    <input type="hidden" name="schedule_id" value="{{ schedule_id }}">
+                    <input type="hidden" name="quantity" value="{{ quantity }}">
+
+                    <div class="passport">
+                        <label for="passport-{{ passenger }}">Номер паспорта (9 цифр)</label>
+                        <input type="text" id="passport-{{ passenger }}" name="passport-{{ passenger }}" pattern="\d{9}" title="Введите 9 цифр" placeholder="Введите номер паспорта" required>
+                    </div>
+
+                    <div class="first-name">
+                        <label for="first-name-{{ passenger }}">Имя</label>
+                        <input type="text" id="first-name-{{ passenger }}" name="first-name-{{ passenger }}" placeholder="Введите имя" required>
+                    </div>
+
+                    <div class="last-name">
+                        <label for="last-name-{{ passenger }}">Фамилия</label>
+                        <input type="text" id="last-name-{{ passenger }}" name="last-name-{{ passenger }}" placeholder="Введите фамилию" required>
+                    </div>
+
+                    <div class="birth-date">
+                        <label for="birth-date-{{ passenger }}">Дата рождения</label>
+                        <input type="date" id="birth-date-{{ passenger }}" name="birth-date-{{ passenger }}" required>
+                    </div>
+                </div>
+                {% endfor %}
+                <button type="submit" class="search-button">Подтвердить</button>
+            </form>
+        </main>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>
