@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='user-orders.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+
+    <header>
+        <div class="container">
+            <div class="logo-title">
+                <a href="{{ url_for('welcome_page') }}">
+                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                    <h1>Paperplane Airlines</h1>
+                </a>
+            </div>
+            <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Меню</button></a>
+        </div>
+    </header>
+
+    <main>
+        <div class="results-header">
+            <h2>Ваши заказы</h2>
+        </div>
+        {% for order_id, order in orders.items() %}
+            <div class="order">
+                <h2>Заказ №{{ order_id }} от {{ order['booking_date'] }}</h2>
+                <h3>Билеты:</h3>
+                {% if order['tickets'] %}
+                    <table class="tickets">
+                        <thead>
+                            <tr>
+                                <th>Номер билета</th>
+                                <th>Рейс</th>
+                                <th>Пассажир</th>
+                                <th>Паспорт</th>
+                                <th>Дата рождения</th>
+                                <th>Место</th>
+                                <th>Цена</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket in order['tickets'] %}
+                                <tr>
+                                    <td>{{ ticket['ticket_id'] }}</td>
+                                    <td>{{ ticket['schedule_id'] }}</td>
+                                    <td>{{ ticket['first_name'] }} {{ ticket['last_name'] }}</td>
+                                    <td>{{ ticket['passport'] }}</td>
+                                    <td>{{ ticket['birth_date'] }}</td>
+                                    <td>{{ " " if ticket['seat_number'] == 'None' else ticket['seat_number'] }}</td>
+                                    <td>{{ " " if ticket['price'] == 'None' else ticket['price'] }}</td>
+                                    <td class="status {{ ticket['status']|lower }}">{{ ticket['status'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Билеты не найдены.</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+    </main>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>
