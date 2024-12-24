@@ -26,11 +26,6 @@ header .container {
     margin: 0 auto;
 }
 
-header .logo-title {
-    display: flex;
-    align-items: center;
-}
-
 header img {
     height: 50px;
     width: auto;
@@ -54,6 +49,13 @@ header button {
 
 header button:hover {
     background-color: #e6f0ff;
+}
+
+header .logo-title a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
 }
 
 .flash-messages {

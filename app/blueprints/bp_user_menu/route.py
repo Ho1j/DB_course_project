@@ -3,7 +3,7 @@ from access import auth_required
 
 bp_user_menu = Blueprint('bp_user_menu', __name__, template_folder='templates', static_folder='static')
 
-@bp_user_menu.route('/user-menu', methods=['GET'])
+@bp_user_menu.route('', methods=['GET'])
 @auth_required
 def user_menu():
     group_name = session.get('group_name')

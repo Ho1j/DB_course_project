@@ -20,9 +20,7 @@ def auth_required(f):
             if request.endpoint == 'bp_auth.user_login':
                 return f(*args, **kwargs)
             flash('Необходимо авторизоваться', 'error')
-            return redirect(url_for('bp_auth.user_login'))
-            # flash('Необходимо авторизоваться', 'error')
-            # return redirect(url_for('bp_auth.login_page'))
+            return redirect(url_for('bp_auth.user_auth'))
     return wrapper
 
 
@@ -34,5 +32,15 @@ def group_required(f):
             return f(*args, **kwargs)
         else:
             flash('У Вас нет доступа к этому варианту использования', 'error')
-            return redirect(url_for('home_page'))
+            return redirect(url_for('welcome_page'))
     return wrapper
+
+
+def already_authenticated(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if 'user_id' in session:
+            return redirect(url_for('bp_user_menu.user_menu'))
+        return f(*args, **kwargs)
+    return wrapper
+

@@ -1,6 +1,5 @@
 from calendar import month
 from datetime import datetime
-
 from flask import Blueprint, render_template, request, current_app, session, redirect, flash, url_for
 from database import execute_and_fetch, SqlProvider
 import access
@@ -12,7 +11,7 @@ provider = SqlProvider('./sql')
 reports = [{'id': 1, 'name': 'Все заказы за месяц и год'}]
 
 
-@bp_reports.route('/')
+@bp_reports.route('/myreports')
 @access.auth_required
 @access.group_required
 def reports_choice():

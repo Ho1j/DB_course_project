@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template, request, current_app, session, redirect, url_for
-from database import execute_and_fetch, SqlProvider
 import json
-import access
-
+from database import execute_and_fetch, SqlProvider
+from access import auth_required, group_required
 
 bp_queries = Blueprint('bp_queries', __name__, template_folder='templates', static_folder='static')
 provider = SqlProvider('./sql')
@@ -10,9 +9,9 @@ with open('blueprints/bp_queries/static/imgs/products.json') as f:
     products_imgs = json.load(f)
 
 
-@bp_queries.route('/')
-@access.auth_required
-@access.group_required
+@bp_queries.route('/mytickets')
+@auth_required
+@group_required
 def search_choice():
     print(session)
     return render_template('search_choice.html')

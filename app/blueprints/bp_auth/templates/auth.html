@@ -17,21 +17,23 @@
         <header>
             <div class="container">
                 <div class="logo-title">
-                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
-                    {% if login_type == "staff" %}
-                    <h1>Авиабилеты Онлайн (вход сотрудника)</h1>
-                    {% else %}
-                    <h1>Авиабилеты Онлайн</h1>
-                    {% endif %}
+                    <a href="{{ url_for('welcome_page') }}">
+                        <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                        {% if login_type == "staff" %}
+                            <h1>Paperplane Airlines (вход сотрудника)</h1>
+                        {% else %}
+                            <h1>Paperplane Airlines</h1>
+                        {% endif %}
+                    </a>
                 </div>
-                <a href="{{ url_for('bp_reg.register_page') }}"><button>Регистрация</button></a>
+                <a href="{{ url_for('bp_reg.user_reg') }}"><button>Регистрация</button></a>
             </div>
         </header>
         <main>
             <div class="form-header">
                 <h2>Вход</h2>
             </div>
-            <form action="" method=POST class="login-form">
+            <form action="{{ url_for('bp_auth.' 'process_' + login_type + '_auth') }}" method=POST class="login-form">
                 <div class="form-item">
                     <label for="login">Логин</label>
                     <input type="text" name="login" id="login" required>

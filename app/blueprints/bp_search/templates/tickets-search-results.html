@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Авиабилеты Онлайн</title>
     <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('.static', filename='search_results.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='tickets-search-results.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
     {% with messages = get_flashed_messages(with_categories=True) %}
@@ -18,10 +18,12 @@
     <header>
         <div class="container">
             <div class="logo-title">
-                <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
-                <h1>Авиабилеты Онлайн</h1>
+                <a href="{{ url_for('welcome_page') }}">
+                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                    <h1>Paperplane Airlines</h1>
+                </a>
             </div>
-            <a href="{{ url_for('bp_auth.logout') }}"><button>Выйти</button></a>
+            <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Меню</button></a>
         </div>
     </header>
 
@@ -57,7 +59,7 @@
                             <td>{{ flight['arrival_airport'] }}</td>
                             <td>{{ flight['arrival_time'] }}</td>
                             <td>
-                                <form class="booking-form" action="{{ url_for('bp_booking.booking_form') }}" method="POST">
+                                <form class="booking-form" action="{{ url_for('bp_booking.tickets_booking') }}" method="POST">
                                     <div class="booking-quantity">
                                         <label for="quantity">Количество:</label>
                                         <input type="number" id="quantity" name="quantity" min="1" max="10" value="1">

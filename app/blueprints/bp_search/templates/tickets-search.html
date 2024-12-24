@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('bp_search.static', filename='tickets-search.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+
+    <header>
+        <div class="container">
+            <div class="logo-title">
+                <a href="{{ url_for('welcome_page') }}">
+                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                    <h1>Paperplane Airlines</h1>
+                </a>
+            </div>
+            <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Меню</button></a>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-header">
+            <h2>Поиск рейсов</h2>
+        </div>
+        <form action="{{ url_for('bp_search.process_tickets_search') }}" method="POST" class="search-form">
+            <div class="form-item">
+                <label for="departure-city">Город вылета</label>
+                <input type="text" id="departure-city" name="departure_city" placeholder="Введите город вылета" required>
+            </div>
+
+            <div class="form-item">
+                <label for="arrival-city">Город прилета</label>
+                <input type="text" id="arrival-city" name="arrival_city" placeholder="Введите город прилета" required>
+            </div>
+
+            <div class="form-item">
+                <label for="flight-date">Дата вылета</label>
+                <input type="date" id="flight-date" name="flight_date" min="{{ today }}" required>
+            </div>
+
+            <div class="form-item">
+                <button type="submit" class="search-button">Найти рейсы</button>
+            </div>
+        </form>
+    </main>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>

@@ -18,13 +18,15 @@
         <header>
             <div class="container">
                 <div class="logo-title">
-                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
-                    <h1>Авиабилеты Онлайн</h1>
+                    <a href="{{ url_for('welcome_page') }}">
+                        <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                        <h1>Paperplane Airlines</h1>
+                    </a>
                 </div>
                 {% if user_id %}
-                    <a href="{{ url_for('bp_auth.logout') }}"><button>Аккаунт</button></a>
+                    <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Аккаунт</button></a>
                 {% else %}
-                    <a href="{{ url_for('bp_auth.user_login') }}"><button>Войти</button></a>
+                    <a href="{{ url_for('bp_auth.user_auth') }}"><button>Войти</button></a>
                 {% endif %}
             </div>
         </header>

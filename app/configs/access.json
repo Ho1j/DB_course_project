@@ -1,9 +1,9 @@
 {
   "user": [
-    "bp_basket"
+    "bp_search",
+    "bp_booking"
   ],
   "cashier": [
-    "bp_auth",
     "bp_queries",
     "bp_reports"
   ],
