@@ -3,10 +3,7 @@ from flask import (
 	request, current_app,
 	session, redirect, url_for
 )
-
-from db_connect import DB_Context_Manager
-from db_utils import execute_and_fetch
-from sql_provider import SqlProvider
+from database import execute_and_fetch, SqlProvider
 from cache.wrapper import fetch_from_cache
 import access
 

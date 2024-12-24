@@ -1,4 +1,4 @@
-﻿from db_connect import DB_Context_Manager
+﻿from .db_connect import DB_Context_Manager
 
 
 def execute_and_fetch(config: dict, _sql: str):

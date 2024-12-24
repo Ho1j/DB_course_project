@@ -1,7 +1,6 @@
 ﻿from flask import Blueprint, render_template, request, current_app, session, flash, redirect, url_for
 from datetime import date
-from sql_provider import SqlProvider
-from db_connect import DB_Context_Manager
+from database import execute_and_fetch, SqlProvider
 
 bp_booking = Blueprint('bp_booking', __name__, template_folder='templates', static_folder='static')
 provider = SqlProvider('./sql')

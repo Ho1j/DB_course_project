@@ -1,7 +1,7 @@
 ﻿from flask import Blueprint, render_template, request, current_app, flash, redirect, url_for
 from datetime import date
-from sql_provider import SqlProvider
-from db_utils import execute_and_fetch
+from database import execute_and_fetch, SqlProvider
+
 
 bp_search = Blueprint('bp_search', __name__, template_folder='templates', static_folder='static')
 provider = SqlProvider('./sql')

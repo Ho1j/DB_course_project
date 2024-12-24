@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, current_app, session, redirect, url_for
-from db_utils import execute_and_fetch
-from sql_provider import SqlProvider
+from database import execute_and_fetch, SqlProvider
 import json
 import access
 
