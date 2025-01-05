@@ -1,5 +1,6 @@
 ﻿from flask import Blueprint, render_template, request, current_app, session, flash, redirect, url_for
-from database import execute_and_fetch, SqlProvider, DB_Context_Manager
+from pymysql.err import IntegrityError
+from database import execute_and_fetch, SqlProvider, DBContextManager
 from access import auth_required, group_required
 
 
@@ -15,8 +16,6 @@ def tickets_booking():
     schedule_id = request.form.get('schedule_id')
     flight_number = request.form.get('flight_number')
     flight_date = request.form.get('flight_date')
-    print(quantity, flight_number, schedule_id, flight_date)
-
     return render_template("tickets-booking.html", quantity=quantity, schedule_id=schedule_id, flight_number=flight_number, flight_date=flight_date)
 
 
@@ -29,7 +28,7 @@ def process_tickets_booking():
     user_id = session.get('user_id')
 
     try:
-        with DB_Context_Manager(current_app.config['DB_CONFIG']) as cursor:
+        with DBContextManager(current_app.config['DB_CONFIG']) as cursor:
             sql = provider.get_sql("create_order.sql", user_id=user_id)
             cursor.execute(sql)
             order_id = cursor.lastrowid
@@ -43,9 +42,12 @@ def process_tickets_booking():
                                        birth_date=birth_date)
                 cursor.execute(sql)
         flash("Заказ успешно создан!", "success")
+        return redirect(url_for('bp_user_menu.user_menu'))
+
+    except IntegrityError as e:
+        flash(f"Бронь на паспорт {passport} уже существует.", "error")
+        return redirect(url_for('bp_user_menu.user_menu'))
 
     except Exception as e:
         flash("Произошла ошибка при создании заказа.", "error")
-        raise  # Необязательно: выбросить исключение дальше
-
-    return redirect(url_for('bp_user_menu.user_menu'))
+        return redirect(url_for('bp_user_menu.user_menu'))
