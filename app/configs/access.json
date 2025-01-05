@@ -2,6 +2,7 @@
   "user": [
     "bp_search",
     "bp_booking",
+    "bp_search",
     "bp_user_orders"
   ],
   "cashier": [
