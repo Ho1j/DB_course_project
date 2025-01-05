@@ -40,18 +40,18 @@
                     <input type="hidden" name="quantity" value="{{ quantity }}">
 
                     <div class="passport">
-                        <label for="passport-{{ passenger }}">Номер паспорта (9 цифр)</label>
-                        <input type="text" id="passport-{{ passenger }}" name="passport-{{ passenger }}" pattern="\d{9}" title="Введите 9 цифр" placeholder="Введите номер паспорта" required>
+                        <label for="passport-{{ passenger }}">Номер паспорта</label>
+                        <input type="text" id="passport-{{ passenger }}" name="passport-{{ passenger }}" pattern="\d{9}" title="Введите 9 цифр" placeholder="Введите номер паспорта (9 цифр)" required>
                     </div>
 
                     <div class="first-name">
                         <label for="first-name-{{ passenger }}">Имя</label>
-                        <input type="text" id="first-name-{{ passenger }}" name="first-name-{{ passenger }}" placeholder="Введите имя" required>
+                        <input type="text" id="first-name-{{ passenger }}" name="first-name-{{ passenger }}" pattern="[A-Za-z]+" placeholder="Введите имя (латиница)" required>
                     </div>
 
                     <div class="last-name">
                         <label for="last-name-{{ passenger }}">Фамилия</label>
-                        <input type="text" id="last-name-{{ passenger }}" name="last-name-{{ passenger }}" placeholder="Введите фамилию" required>
+                        <input type="text" id="last-name-{{ passenger }}" name="last-name-{{ passenger }}" pattern="[A-Za-z]+" placeholder="Введите фамилию (латиница)" required>
                     </div>
 
                     <div class="birth-date">
