@@ -1,4 +1,4 @@
-﻿from flask import Blueprint, render_template, current_app, flash, redirect, url_for, session
+﻿from flask import Blueprint, render_template, session
 from access import auth_required
 
 bp_user_menu = Blueprint('bp_user_menu', __name__, template_folder='templates', static_folder='static')
