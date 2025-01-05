@@ -1,4 +1,4 @@
-﻿from flask import Blueprint, render_template, request, current_app, session, flash, redirect, url_for
+﻿from flask import Blueprint, render_template, request, current_app, flash, redirect, url_for
 from werkzeug.security import generate_password_hash
 from database import execute_and_fetch, SqlProvider
 from access import already_authenticated
