@@ -1,8 +1,8 @@
-﻿from .db_connect import DB_Context_Manager
+﻿from .db_connect import DBContextManager
 
 
 def execute_and_fetch(config: dict, _sql: str):
-    with DB_Context_Manager(config) as cursor:
+    with DBContextManager(config) as cursor:
         if cursor is None:
             raise ValueError('Курсор не создан')
         else:
