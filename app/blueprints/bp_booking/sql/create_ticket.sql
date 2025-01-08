@@ -4,7 +4,8 @@ INSERT INTO tickets (
     passport,
     first_name,
     last_name,
-    birth_date
+    birth_date,
+    seat_number
 )
 VALUES (
     '$order_id',
@@ -12,5 +13,6 @@ VALUES (
     '$passport',
     '$first_name',
     '$last_name',
-    '$birth_date'
+    '$birth_date',
+    '$seat_number'
 );
