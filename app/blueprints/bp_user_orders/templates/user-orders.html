@@ -33,14 +33,16 @@
         </div>
         {% for order_id, order in orders.items() %}
             <div class="order">
-                <h2>Заказ №{{ order_id }} от {{ order['booking_date'] }}</h2>
+                <h2>Заказ №{{ order_id }} пользователя {{ order['email'] }} от {{ order['booking_date'] }}</h2>
                 <h3>Билеты:</h3>
                 {% if order['tickets'] %}
                     <table class="tickets">
                         <thead>
                             <tr>
-                                <th>Номер билета</th>
                                 <th>Рейс</th>
+                                <th>Дата</th>
+                                <th>Время вылета</th>
+                                <th>Время прилета</th>
                                 <th>Пассажир</th>
                                 <th>Паспорт</th>
                                 <th>Дата рождения</th>
@@ -52,13 +54,15 @@
                         <tbody>
                             {% for ticket in order['tickets'] %}
                                 <tr>
-                                    <td>{{ ticket['ticket_id'] }}</td>
-                                    <td>{{ ticket['schedule_id'] }}</td>
+                                    <td>{{ ticket['flight_number'] }}</td>
+                                    <td>{{ ticket['schedule_date'] }}</td>
+                                    <td>{{ ticket['departure_time'] }}</td>
+                                    <td>{{ ticket['arrival_time'] }}</td>
                                     <td>{{ ticket['first_name'] }} {{ ticket['last_name'] }}</td>
                                     <td>{{ ticket['passport'] }}</td>
                                     <td>{{ ticket['birth_date'] }}</td>
-                                    <td>{{ " " if ticket['seat_number'] == 'None' else ticket['seat_number'] }}</td>
-                                    <td>{{ " " if ticket['price'] == 'None' else ticket['price'] }}</td>
+                                    <td>{{ " " if not ticket['seat_number'] else ticket['seat_number'] }}</td>
+                                    <td>{{ " " if not ticket['price'] else ticket['price'] }}</td>
                                     <td class="status {{ ticket['status']|lower }}">{{ ticket['status'] }}</td>
                                 </tr>
                             {% endfor %}

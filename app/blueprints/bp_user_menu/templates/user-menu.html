@@ -32,13 +32,18 @@
                 <h2>Меню действий</h2>
             </div>
             <div class="buttons-container">
-                {% if group_name == "user" %}
+                {% if user_group == "user" %}
                 <a href="{{ url_for('bp_search.tickets_search') }}"><button>Купить авиабилеты</button></a>
                 <a href="{{ url_for('bp_user_orders.user_orders') }}"><button>Мои авиабилеты</button></a>
-                <a href=""><button>Мой аккаунт</button></a>
-                {% elif group_name == "admin" %}
+                {% elif user_group == "cashier" %}
+                <a href="{{ url_for('bp_search.tickets_search') }}"><button>Создать заказ</button></a>
+                <a href="{{ url_for('bp_cashier_orders.pending_orders') }}"><button>Обработать заказ</button></a>
+                <a href="{{ url_for('bp_queries.search_choice') }}"><button>Работа с запросами</button></a>
+                {% elif user_group == "manager" %}
                 <a href="{{ url_for('bp_queries.search_choice') }}"><button>Работа с запросами</button></a>
                 <a href="{{ url_for('bp_reports.reports_choice') }}"><button>Работа с отчётами</button></a>
+                {% elif user_group == "admin" %}
+                <a href="{{ url_for('bp_queries.search_choice') }}"><button>Работа с системой</button></a>
                 {% endif %}
             </div>
         </main>
