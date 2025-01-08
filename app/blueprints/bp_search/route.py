@@ -5,7 +5,7 @@ from access import auth_required, group_required
 
 
 bp_search = Blueprint('bp_search', __name__, template_folder='templates', static_folder='static')
-provider = SqlProvider('./sql')
+provider = SqlProvider('./blueprints/bp_search/sql')
 
 @bp_search.route('', methods=['GET'])
 @auth_required

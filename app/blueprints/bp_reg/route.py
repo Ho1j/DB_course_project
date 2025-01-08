@@ -4,7 +4,7 @@ from database import execute_and_fetch, SqlProvider
 from access import already_authenticated
 
 bp_reg = Blueprint('bp_reg', __name__, template_folder='templates', static_folder='static')
-provider = SqlProvider('./sql')
+provider = SqlProvider('./blueprints/bp_reg/sql')
 
 
 @bp_reg.route('', methods=['GET'])
