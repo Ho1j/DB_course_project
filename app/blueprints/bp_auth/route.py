@@ -1,3 +1,5 @@
+from multiprocessing.forkserver import read_signed
+
 from flask import Blueprint, render_template, request, current_app, session, flash, redirect, url_for
 from werkzeug.security import check_password_hash
 from database import execute_and_fetch, SqlProvider
@@ -26,9 +28,10 @@ def process_user_auth():
     if not check_password_hash(result[0]['password'], password):
         flash('Неверный пароль', 'error')
         return render_template('auth.html', login_type="user")
-    session['group_name'], session['login'] = result[0]['user_group'], result[0]['login']
-    session['user_id'] = result[0]['user_id']
+    session['user_group'], session['login'] = result[0]['user_group'], result[0]['login']
+    session['user_id'], session['email'] = result[0]['user_id'], result[0]['email']
     flash(f"Вы авторизовались как {session['login']}", 'success')
+    print(session)
     return redirect(url_for('bp_user_menu.user_menu'))
 
 
@@ -53,15 +56,15 @@ def process_staff_auth():
     if result[0]['password'] != password:
         flash('Неверный пароль', 'error')
         return render_template('auth.html', login_type="staff")
-    session['group_name'], session['login'] = result[0]['user_group'], result[0]['login']
+    session['user_group'], session['login'] = result[0]['user_group'], result[0]['login']
     session['user_id'] = result[0]['user_id']
     flash(f"Вы авторизовались как {session['login']}", 'success')
     return redirect(url_for('bp_user_menu.user_menu'))
 
 @bp_auth.route('/logout', methods=['GET'])
 def process_logout():
-    session.pop('group_name', None)
-    session.pop('login', None)
-    session.pop('user_id', None)
+    session.clear()
+    print(1)
+    print(session)
     flash('Вы вышли из аккаунта', 'success')
     return redirect(url_for('welcome_page'))

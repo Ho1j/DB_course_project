@@ -1,2 +1,2 @@
-INSERT INTO external_users (login, password)
-VALUES ('$login', '$hashed_password')
+INSERT INTO external_users (login, password, email)
+VALUES ('$login', '$hashed_password', '$email')

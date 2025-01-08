@@ -19,6 +19,7 @@ def process_user_reg():
     login = request.form.get('login')
     password = request.form.get('password')
     confirm_password = request.form.get('confirm_password')
+    email = request.form.get('email')
 
     if not login or not password:
         flash('Логин и пароль обязательны', 'error')
@@ -30,7 +31,7 @@ def process_user_reg():
 
     hashed_password = generate_password_hash(password)
 
-    sql = provider.get_sql('reg.sql', login=login, hashed_password=hashed_password)
+    sql = provider.get_sql('reg.sql', login=login, hashed_password=hashed_password, email=email)
     execute_and_fetch(current_app.config['DB_CONFIG'], sql)
 
     flash('Вы успешно зарегистрировались!', 'success')

@@ -31,6 +31,10 @@
             </div>
             <form action="{{ url_for('bp_reg.process_user_reg') }}" method=POST class="login-form">
                 <div class="form-item">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" required title="Введите email в формате example@domain.com">
+                </div>
+                <div class="form-item">
                     <label for="login">Логин</label>
                     <input type="text" name="login" id="login" required>
                 </div>
