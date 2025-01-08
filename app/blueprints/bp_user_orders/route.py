@@ -10,8 +10,8 @@ provider = SqlProvider('./blueprints/bp_user_orders/sql')
 @auth_required
 @group_required
 def user_orders():
-    user_id = session.get('user_id')
-    sql = provider.get_sql("view_orders.sql", user_id=user_id)
+    email = session.get('email')
+    sql = provider.get_sql("view_orders.sql", email=email)
     result = execute_and_fetch(current_app.config["DB_CONFIG"], sql)
     print(result)
     orders = {}
@@ -20,11 +20,14 @@ def user_orders():
         if order_id not in orders:
             orders[order_id] = {
                 'booking_date': order['booking_date'],
+                'email': order['email'],
                 'tickets': []
             }
         orders[order_id]['tickets'].append({
-            'ticket_id': order['ticket_id'],
-            'schedule_id': order['schedule_id'],
+            'flight_number': order['flight_number'],
+            'schedule_date': order['schedule_date'],
+            'departure_time': order['departure_time'],
+            'arrival_time': order['arrival_time'],
             'passport': order['passport'],
             'first_name': order['first_name'],
             'last_name': order['last_name'],
