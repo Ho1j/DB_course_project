@@ -4,9 +4,9 @@ from functools import wraps
 
 def group_validation(config: dict):
     bp_endpoint = request.endpoint.split('.')[0]
-    if 'group_name' in session:
-        group_name = session['group_name']
-        if group_name in config and bp_endpoint in config[group_name]:
+    if 'user_group' in session:
+        user_group = session['user_group']
+        if user_group in config and bp_endpoint in config[user_group]:
             return True
         return False
 

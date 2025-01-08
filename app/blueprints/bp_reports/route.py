@@ -19,7 +19,7 @@ def reports_choice():
 
 @bp_reports.route('/create_1', methods=['GET', 'POST'])
 def create_1():
-    if session['group_name'] == 'admin':
+    if session['user_group'] == 'admin':
         if request.method == 'GET':
             return render_template('create_1.html')
         else:
