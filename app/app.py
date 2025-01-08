@@ -9,6 +9,7 @@ from blueprints.bp_search.route import bp_search
 from blueprints.bp_booking.route import bp_booking
 from blueprints.bp_user_menu.route import bp_user_menu
 from blueprints.bp_user_orders.route import bp_user_orders
+from blueprints.bp_cashier_orders.route import bp_cashier_orders
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
@@ -24,6 +25,8 @@ app.register_blueprint(bp_search, url_prefix='/tickets-search')
 app.register_blueprint(bp_booking, url_prefix='/tickets-booking')
 app.register_blueprint(bp_user_menu, url_prefix='/user-menu')
 app.register_blueprint(bp_user_orders, url_prefix='/user-orders')
+app.register_blueprint(bp_cashier_orders, url_prefix='/cashier-orders')
+
 
 
 @app.route('/')
