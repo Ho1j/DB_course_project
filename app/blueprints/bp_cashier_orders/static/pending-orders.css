@@ -1,0 +1,160 @@
+﻿main {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 100%;
+    min-width: 600px;
+    padding: 0 20px;
+}
+
+main h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Стили для формы заказа */
+.order {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.order h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.order p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.order .buttons {
+    display: flex;
+}
+
+.order button {
+    width: 100%;
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.confirm {
+    background-color: rgba(0, 128, 0, 0.8);
+}
+
+.change {
+    background-color: #0073e6;
+}
+
+.cancel {
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.tickets {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+/* Стили для полей ввода */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+    width: 100%; /* Поле занимает всю ширину ячейки */
+    padding: 8px; /* Внутренний отступ */
+    margin: 5px 0; /* Отступы между элементами */
+    border: 1px solid #ccc; /* Светлая рамка */
+    border-radius: 4px; /* Скругленные углы */
+    font-size: 14px; /* Размер шрифта */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Внутренняя тень для глубины */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Анимация при наведении */
+}
+
+/* Стили для выпадающих списков */
+select {
+    appearance: none; /* Убирает стандартный вид браузера */
+    background-color: #fff; /* Белый фон */
+    cursor: pointer; /* Курсор в виде руки при наведении */
+}
+
+/* Стили при наведении */
+input[type="text"]:hover,
+input[type="date"]:hover,
+input[type="number"]:hover,
+select:hover {
+    border-color: #0073e6; /* Синий цвет рамки */
+    box-shadow: 0 0 5px rgba(0, 115, 230, 0.3); /* Легкая подсветка */
+}
+
+/* Стили при фокусе */
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #005bb5; /* Более темный синий цвет */
+    box-shadow: 0 0 5px rgba(0, 91, 181, 0.5); /* Подсветка при фокусе */
+    outline: none; /* Убираем стандартный контур */
+}
+
+
+.tickets th, .tickets td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.tickets th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tickets tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tickets tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Стили для статуса билета */
+.tickets td.status {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.tickets td.status.confirmed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.tickets td.status.booked {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.tickets td.status.cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Стили для блока с сообщением об отсутствии билетов */
+.no-results {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+    color: #ff0000;
+}

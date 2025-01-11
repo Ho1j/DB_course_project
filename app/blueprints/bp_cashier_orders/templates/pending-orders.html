@@ -36,44 +36,110 @@
                 <h2>Заказ №{{ order_id }} пользователя {{ order['email'] }} от {{ order['booking_date'] }}</h2>
                 <h3>Редактировать билеты:</h3>
                 {% if order['tickets'] %}
-                    <table class="tickets">
-                        <thead>
-                            <tr>
-                                <th>Рейс</th>
-                                <th>Дата</th>
-                                <th>Время вылета</th>
-                                <th>Время прилета</th>
-                                <th>Имя</th>
-                                <th>Фамилия</th>
-                                <th>Паспорт</th>
-                                <th>Дата рождения</th>
-                                <th>Место</th>
-                                <th>Цена</th>
-                                <th>Статус</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for ticket in order['tickets'] %}
+                    <form action="{{ url_for('bp_cashier_orders.change_order', order_id=order_id) }}" method="POST">
+                        <input type="hidden" name="ticket_count" value="{{ order['tickets']|length }}">
+                        <table class="tickets">
+                            <thead>
                                 <tr>
-                                    <td>{{ ticket['flight_number'] }}</td>
-                                    <td>{{ ticket['schedule_date'] }}</td>
-                                    <td>{{ ticket['departure_time'] }}</td>
-                                    <td>{{ ticket['arrival_time'] }}</td>
-                                    <td>{{ ticket['first_name'] }}</td>
-                                    <td>{{ ticket['last_name'] }}</td>
-                                    <td>{{ ticket['passport'] }}</td>
-                                    <td>{{ ticket['birth_date'] }}</td>
-                                    <td>{{ " " if not ticket['seat_number'] else ticket['seat_number'] }}</td>
-                                    <td>{{ " " if not ticket['price'] else ticket['price'] }}</td>
-                                    <td class="status {{ ticket['status']|lower }}">{{ ticket['status'] }}</td>
+                                    <th>Рейс</th>
+                                    <th>Дата</th>
+                                    <th>Время вылета</th>
+                                    <th>Время прилета</th>
+                                    <th>Имя</th>
+                                    <th>Фамилия</th>
+                                    <th>Паспорт</th>
+                                    <th>Дата рождения</th>
+                                    <th>Место</th>
+                                    <th>Цена</th>
+                                    <th>Статус</th>
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <form class="buttons" action="{{ url_for('bp_cashier_orders.change_order', order_id=order_id) }}" method="POST">
-                        <button class="confirm" type="submit" name="action" value="confirm">Подтвердить заказ</button>
-                        <button class="change" type="submit" name="action" value="change">Изменить заказ</button>
-                        <button class="cancel" type="submit" name="action" value="cancel">Отменить заказ</button>
+                            </thead>
+                            <tbody>
+                                {% for ticket in order['tickets'] %}
+                                    <tr>
+                                        <td>
+                                            <input
+                                            type="hidden"
+                                            name="tickets[{{ loop.index }}][ticket_id]"
+                                            value="{{ ticket['ticket_id'] }}">
+                                            {{ ticket['flight_number'] }}
+                                        </td>
+                                        <td>{{ ticket['schedule_date'] }}</td>
+                                        <td>{{ ticket['departure_time'] }}</td>
+                                        <td>{{ ticket['arrival_time'] }}</td>
+                                        <td>
+                                            <label for="first_name_{{ loop.index }}"></label>
+                                            <input
+                                                type="text"
+                                                id="first_name_{{ loop.index }}"
+                                                name="tickets[{{ loop.index }}][first_name]"
+                                                value="{{ ticket['first_name'] }}"
+                                                required>
+                                        </td>
+                                        <td>
+                                            <label for="last_name_{{ loop.index }}"></label>
+                                            <input
+                                                type="text"
+                                                id="last_name_{{ loop.index }}"
+                                                name="tickets[{{ loop.index }}][last_name]"
+                                                value="{{ ticket['last_name'] }}"
+                                                required>
+                                        </td>
+                                        <td>
+                                            <label for="passport_{{ loop.index }}"></label>
+                                            <input
+                                                type="text"
+                                                id="passport_{{ loop.index }}"
+                                                name="tickets[{{ loop.index }}][passport]"
+                                                value="{{ ticket['passport'] }}"
+                                                required>
+                                        </td>
+                                        <td>
+                                            <label for="birth_date_{{ loop.index }}"></label>
+                                            <input
+                                                type="date"
+                                                id="birth_date_{{ loop.index }}"
+                                                name="tickets[{{ loop.index }}][birth_date]"
+                                                value="{{ ticket['birth_date'] }}"
+                                                required>
+                                        </td>
+                                        <td>
+                                            <label for="seat_number_{{ loop.index }}"></label>
+                                            <input
+                                                type="text"
+                                                id="seat_number_{{ loop.index }}"
+                                                name="tickets[{{ loop.index }}][seat_number]"
+                                                value="{{ ' ' if not ticket['seat_number'] else ticket['seat_number'] }}"
+                                                required>
+                                        </td>
+                                        <td>
+                                            <label for="price_{{ loop.index }}"></label>
+                                            <input
+                                                type="number"
+                                                id="price_{{ loop.index }}"
+                                                name="tickets[{{ loop.index }}][price]"
+                                                value="{{ '' if not ticket['price'] else ticket['price'] }}">
+                                        </td>
+                                        <td>
+                                            <label for="status_{{ loop.index }}"></label>
+                                            <select
+                                                id="status_{{ loop.index }}"
+                                                name="tickets[{{ loop.index }}][status]"
+                                                required>
+                                                <option value="booked" {% if ticket['status'] == 'booked' %}selected{% endif %}>Забронирован</option>
+                                                <option value="confirmed" {% if ticket['status'] == 'confirmed' %}selected{% endif %}>Подтвержден</option>
+                                                <option value="canceled">Отменен</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="buttons">
+                            <button class="confirm" type="submit" name="action" value="confirm">Подтвердить заказ</button>
+                            <button class="change" type="submit" name="action" value="change">Изменить заказ</button>
+                            <button class="cancel" type="submit" name="action" value="cancel">Отменить заказ</button>
+                        </div>
                     </form>
                 {% else %}
                     <p>Билеты не найдены.</p>
