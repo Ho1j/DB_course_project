@@ -7,6 +7,7 @@ bp_user_menu = Blueprint('bp_user_menu', __name__, template_folder='templates', 
 @auth_required
 def user_menu():
     user_group = session.get('user_group')
-    return render_template('user-menu.html', user_group=user_group)
+    login = session.get('login')
+    return render_template('user-menu.html', user_group=user_group, login=login)
 
 
