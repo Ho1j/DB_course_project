@@ -9,6 +9,7 @@ SELECT
     arr_airport.airport_name AS arrival_airport,
     arr_airport.city AS arrival_city,
     arr_airport.country AS arrival_country,
+    f.ticket_price,
     f.arrival_time AS arrival_time
 FROM
     flights f
