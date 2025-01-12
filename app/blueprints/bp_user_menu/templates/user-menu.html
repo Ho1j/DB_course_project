@@ -23,7 +23,10 @@
                         <h1>Paperplane Airlines</h1>
                     </a>
                 </div>
-                <a href="{{ url_for('bp_auth.process_logout') }}"><button>Выйти</button></a>
+                <div class="session-button">
+                    <div class="username">{{ login }}</div>
+                    <a href="{{ url_for('bp_auth.process_logout') }}"><button>Выйти</button></a>
+                </div>
             </div>
         </header>
 
@@ -36,8 +39,7 @@
                 <a href="{{ url_for('bp_search.tickets_search') }}"><button>Купить авиабилеты</button></a>
                 <a href="{{ url_for('bp_user_orders.user_orders') }}"><button>Мои авиабилеты</button></a>
                 {% elif user_group == "cashier" %}
-                <a href="{{ url_for('bp_search.tickets_search') }}"><button>Создать заказ</button></a>
-                <a href="{{ url_for('bp_cashier_orders.pending_orders') }}"><button>Обработать заказ</button></a>
+                <a href="{{ url_for('bp_cashier_orders.orders_menu') }}"><button>Работа с заказами</button></a>
                 <a href="{{ url_for('bp_queries.search_choice') }}"><button>Работа с запросами</button></a>
                 {% elif user_group == "manager" %}
                 <a href="{{ url_for('bp_queries.search_choice') }}"><button>Работа с запросами</button></a>

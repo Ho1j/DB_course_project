@@ -24,7 +24,10 @@
                     </a>
                 </div>
                 {% if user_id %}
-                    <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Аккаунт</button></a>
+                    <div class="session-button">
+                        <div class="username">{{ login }}</div>
+                        <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Аккаунт</button></a>
+                    </div>
                 {% else %}
                     <a href="{{ url_for('bp_auth.user_auth') }}"><button>Войти</button></a>
                 {% endif %}

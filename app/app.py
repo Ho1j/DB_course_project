@@ -32,7 +32,8 @@ app.register_blueprint(bp_cashier_orders, url_prefix='/cashier-orders')
 @app.route('/')
 def welcome_page():
     user_id = session.get('user_id')
-    return render_template('index.html', user_id=user_id)
+    login = session.get('login')
+    return render_template('index.html', user_id=user_id, login=login)
 
 if __name__ == '__main__':
     app.run(host = '127.0.0.1', port = 5003, debug = True)
