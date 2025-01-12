@@ -1,4 +1,5 @@
 from flask import Blueprint, session, render_template, current_app, url_for, redirect, request, flash
+from utils import create_orders_list
 from database import execute_and_fetch, SqlProvider, DBContextManager
 from access import auth_required, group_required
 
@@ -6,10 +7,44 @@ from access import auth_required, group_required
 bp_cashier_orders = Blueprint('bp_cashier_orders', __name__, template_folder='templates', static_folder='static')
 provider = SqlProvider('./blueprints/bp_cashier_orders/sql')
 
-@bp_cashier_orders.route('', methods=['GET'])
+
+@bp_cashier_orders.route('/menu', methods=['GET'])
 @auth_required
 @group_required
-def pending_orders():
+def orders_menu():
+    return render_template('orders-menu.html')
+
+
+@bp_cashier_orders.route('/search-order', methods=['GET'])
+@auth_required
+@group_required
+def search_order():
+    return render_template("search-show-orders.html")
+
+
+#Вывод заказа по id
+@bp_cashier_orders.route('/order', methods=['GET'])
+@auth_required
+@group_required
+def show_order():
+    order_id = request.args.get('order_id')
+    sql = provider.get_sql("get_order.sql", order_id=order_id)
+    result = execute_and_fetch(current_app.config["DB_CONFIG"], sql)
+
+    if not result:
+        flash('Заказы не найдены', 'error')
+        return redirect(url_for('bp_user_menu.user_menu'))
+
+    orders = create_orders_list(result)
+
+    return render_template('show-orders.html', orders=orders)
+
+
+#Вывод заказов в обработке
+@bp_cashier_orders.route('/pending-orders', methods=['GET'])
+@auth_required
+@group_required
+def show_pending_orders():
     sql = provider.get_sql("get_booked_orders.sql")
     result = execute_and_fetch(current_app.config["DB_CONFIG"], sql)
 
@@ -17,34 +52,12 @@ def pending_orders():
         flash('Заказы не найдены', 'error')
         return redirect(url_for('bp_user_menu.user_menu'))
 
-    orders = {}
-    for order in result:
-        order_id = order['order_id']
-        if order_id not in orders:
-            orders[order_id] = {
-                'booking_date': order['booking_date'],
-                'email': order['email'],
-                'tickets': []
-            }
-        orders[order_id]['tickets'].append({
-            'ticket_id': order['ticket_id'],
-            'flight_number': order['flight_number'],
-            'schedule_date': order['schedule_date'],
-            'departure_time': order['departure_time'],
-            'arrival_time': order['arrival_time'],
-            'passport': order['passport'],
-            'first_name': order['first_name'],
-            'last_name': order['last_name'],
-            'birth_date': order['birth_date'],
-            'seat_number': order['seat_number'],
-            'price': order['price'],
-            'status': order['status']
-        })
+    orders = create_orders_list(result)
 
-    return render_template('pending-orders.html', orders=orders)
+    return render_template('show-orders.html', orders=orders)
 
 
-@bp_cashier_orders.route('/change/<int:order_id>', methods=['POST'])
+@bp_cashier_orders.route('/change-order', methods=['POST'])
 @auth_required
 @group_required
 def change_order(order_id):
@@ -116,3 +129,4 @@ def change_order(order_id):
             flash(f"Ошибка обновления заказа: {str(e)}", "error")
 
         return redirect(url_for('bp_cashier_orders.pending_orders'))
+

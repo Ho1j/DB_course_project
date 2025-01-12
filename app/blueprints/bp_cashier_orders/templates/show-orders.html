@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Авиабилеты Онлайн</title>
     <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('.static', filename='pending-orders.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='show-orders.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
     {% with messages = get_flashed_messages(with_categories=True) %}
@@ -128,7 +128,7 @@
                                                 required>
                                                 <option value="booked" {% if ticket['status'] == 'booked' %}selected{% endif %}>Забронирован</option>
                                                 <option value="confirmed" {% if ticket['status'] == 'confirmed' %}selected{% endif %}>Подтвержден</option>
-                                                <option value="canceled">Отменен</option>
+                                                <option value="canceled" {% if ticket['status'] == 'canceled' %}selected{% endif %}>Отменен</option>
                                             </select>
                                         </td>
                                     </tr>

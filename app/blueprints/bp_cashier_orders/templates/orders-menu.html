@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='orders-menu.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endwith %}
+
+        <header>
+            <div class="container">
+                <div class="logo-title">
+                    <a href="{{ url_for('welcome_page') }}">
+                        <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                        <h1>Paperplane Airlines</h1>
+                    </a>
+                </div>
+                <div class="session-button">
+                    <div class="username">{{ login }}</div>
+                    <a href="{{ url_for('bp_auth.process_logout') }}"><button>Выйти</button></a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="form-header">
+                <h2>Меню заказов</h2>
+            </div>
+            <div class="buttons-container">
+                <a href="{{ url_for('bp_search.tickets_search') }}"><button>Создать заказ</button></a>
+                <a href="{{ url_for('bp_cashier_orders.search_order') }}"><button>Поиск заказа</button></a>
+                <a href="{{ url_for('bp_cashier_orders.show_pending_orders') }}"><button>Необработанные заказы</button></a>
+            </div>
+        </main>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>
