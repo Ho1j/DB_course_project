@@ -44,6 +44,7 @@
                         <th>Город прилёта</th>
                         <th>Аэропорт прилёта</th>
                         <th>Время прилёта</th>
+                        <th>Цена</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -58,6 +59,7 @@
                             <td>{{ flight['arrival_city'] }}</td>
                             <td>{{ flight['arrival_airport'] }}</td>
                             <td>{{ flight['arrival_time'] }}</td>
+                            <td>{{ flight['ticket_price'] }}</td>
                             <td>
                                 <form class="booking-form" action="{{ url_for('bp_booking.tickets_booking') }}" method="POST">
                                     <div class="booking-quantity">
@@ -65,8 +67,6 @@
                                         <input type="number" id="quantity" name="quantity" min="1" max="10" value="1">
                                     </div>
                                     <input type="hidden" name="schedule_id" value="{{ flight['schedule_id'] }}">
-                                    <input type="hidden" name="flight_number" value="{{ flight['flight_number'] }}">
-                                    <input type="hidden" name="flight_date" value="{{ flight['departure_date'] }}">
                                     <button type="submit" class="book-button">Забронировать</button>
                                 </form>
                             </td>
