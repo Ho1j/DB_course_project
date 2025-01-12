@@ -75,7 +75,7 @@ main h2 {
     color: #856404;
 }
 
-.tickets td.status.cancelled {
+.tickets td.status.canceled {
     background-color: #f8d7da;
     color: #721c24;
 }
