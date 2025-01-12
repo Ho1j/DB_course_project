@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, current_app, session, flash, redirect, url_for
 from werkzeug.security import check_password_hash
 from database import execute_and_fetch, SqlProvider
-from access import already_authenticated
+from access import not_authenticated
 
 
 bp_auth = Blueprint('bp_auth', __name__, template_folder='templates', static_folder='static')
@@ -9,12 +9,12 @@ provider = SqlProvider('./blueprints/bp_auth/sql')
 
 
 @bp_auth.route('', methods=['GET'])
-@already_authenticated
+@not_authenticated
 def user_auth():
     return render_template('auth.html', login_type="user")
 
 @bp_auth.route('', methods=['POST'])
-@already_authenticated
+@not_authenticated
 def process_user_auth():
     login = request.form.get('login')
     password = request.form.get('password')
@@ -33,14 +33,14 @@ def process_user_auth():
 
 
 @bp_auth.route('/staff', methods=['GET'])
-@already_authenticated
+@not_authenticated
 def staff_auth():
     if request.method == 'GET':
         return render_template('auth.html', login_type="staff")
 
 
 @bp_auth.route('/staff', methods=['POST'])
-@already_authenticated
+@not_authenticated
 def process_staff_auth():
     login = request.form.get('login')
     password = request.form.get('password')

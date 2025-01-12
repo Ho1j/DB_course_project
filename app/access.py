@@ -36,7 +36,7 @@ def group_required(f):
     return wrapper
 
 
-def already_authenticated(f):
+def not_authenticated(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if 'user_id' in session:

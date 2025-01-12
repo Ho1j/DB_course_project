@@ -1,20 +1,20 @@
 ﻿from flask import Blueprint, render_template, request, current_app, flash, redirect, url_for
 from werkzeug.security import generate_password_hash
 from database import execute_and_fetch, SqlProvider
-from access import already_authenticated
+from access import not_authenticated
 
 bp_reg = Blueprint('bp_reg', __name__, template_folder='templates', static_folder='static')
 provider = SqlProvider('./blueprints/bp_reg/sql')
 
 
 @bp_reg.route('', methods=['GET'])
-@already_authenticated
+@not_authenticated
 def user_reg():
     return render_template('reg.html')
 
 
 @bp_reg.route('', methods=['POST'])
-@already_authenticated
+@not_authenticated
 def process_user_reg():
     login = request.form.get('login')
     password = request.form.get('password')
