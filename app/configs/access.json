@@ -14,11 +14,7 @@
   "manager": [
     "bp_auth",
     "bp_queries",
-    "bp_reports"
-  ],
-  "admin": [
-    "bp_auth",
-    "bp_queries",
-    "bp_reports"
+    "bp_reports",
+    "bp_manager"
   ]
 }
