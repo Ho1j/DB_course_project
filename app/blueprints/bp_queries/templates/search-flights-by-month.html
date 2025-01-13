@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='search-orders.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=True) %}
+<div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="flash-message {{ category }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endwith %}
+
+<header>
+    <div class="container">
+        <div class="logo-title">
+            <a href="{{ url_for('welcome_page') }}">
+                <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                <h1>Paperplane Airlines</h1>
+            </a>
+        </div>
+        <div class="session-button">
+            <div class="username">{{ login }}</div>
+            <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Аккаунт</button></a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-header">
+        <h2>Запрос рейсов по месяцам</h2>
+    </div>
+    <div class="form-container">
+        <form action="{{ url_for('bp_queries.show_flights_by_month') }}" method=GET>
+            <div class="form-item">
+                <label for="month-picker">Выберите месяц:</label>
+                <input type="month" id="month-picker" name="month">
+            </div>
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+</main>
+<script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>

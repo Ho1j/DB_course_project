@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='queries-menu.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endwith %}
+
+        <header>
+            <div class="container">
+                <div class="logo-title">
+                    <a href="{{ url_for('welcome_page') }}">
+                        <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                        <h1>Paperplane Airlines</h1>
+                    </a>
+                </div>
+                <div class="session-button">
+                    <div class="username">{{ login }}</div>
+                    <a href="{{ url_for('bp_auth.process_logout') }}"><button>Выйти</button></a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="form-header">
+                <h2>Меню запросов</h2>
+            </div>
+            <div class="buttons-container">
+                <a href="{{ url_for('bp_queries.search_orders_by_mail') }}"><button>Поиск заказов по email</button></a>
+                <a href="{{ url_for('bp_queries.search_flights_by_month') }}"><button>Поиск рейсов за указанный месяц</button></a>
+                <a href="{{ url_for('bp_queries.search_flights_by_countries') }}"><button>Поиск рейсов из страны в страну</button></a>
+                {% if user_group == "manager" %}
+                <a href="{{ url_for('bp_queries.search_flights_by_countries') }}"><button>Поиск рейсов из страны в страну</button></a>
+                {% endif %}
+            </div>
+        </main>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>
