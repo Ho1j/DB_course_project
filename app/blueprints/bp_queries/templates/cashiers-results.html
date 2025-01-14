@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='show-flights.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+
+    <header>
+        <div class="container">
+            <div class="logo-title">
+                <a href="{{ url_for('welcome_page') }}">
+                    <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                    <h1>Paperplane Airlines</h1>
+                </a>
+            </div>
+            <a href="{{ url_for('bp_menu.menu') }}"><button>Меню</button></a>
+        </div>
+    </header>
+
+    <main>
+        <div class="results-header">
+            <h2>Штат кассиров:</h2>
+        </div>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Id кассира</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Паспорт</th>
+                    <th>Дата выхода на работу</th>
+                    <th>Дата увольнения</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in result %}
+                    <tr>
+                        <td>{{ i['cashier_id'] }}</td>
+                        <td>{{ i['first_name'] }}</td>
+                        <td>{{ i['last_name'] }}</td>
+                        <td>{{ i['passport_data'] }}</td>
+                        <td>{{ i['hire_date'] }}</td>
+                        <td>{{ " " if not i['termination_date'] else i['termination_date'] }}</td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>
