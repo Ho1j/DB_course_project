@@ -93,3 +93,12 @@ def show_flights_by_countries():
     return render_template('flights-by-countries-results.html', result=get_flights_by_countries_result)
 
 
+@bp_queries.route('/cashiers', methods=['GET'])
+@group_required
+def show_cashiers():
+    sql = provider.get_sql('get_cashiers.sql')
+    cashiers_result = execute_and_fetch(current_app.config['DB_CONFIG'], sql)
+    print(cashiers_result)
+    return render_template('cashiers-results.html', result=cashiers_result, login=session.get('login'))
+
+

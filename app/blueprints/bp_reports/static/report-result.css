@@ -1,0 +1,70 @@
+/* Основной блок контента */
+main {
+    margin: 30px auto;
+    width: 90%;
+    max-width: 1300px;
+}
+
+main h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0073e6;
+}
+
+main h3 {
+    text-align: center;
+}
+
+/* Карточка отчёта */
+.report {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Таблица отчёта */
+.report-results {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+}
+
+.report-results th, .report-results td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+}
+
+.report-results th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+
+.report-results tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.report-results tr:hover {
+    background-color: #e6f0ff;
+}
+
+/* Адаптация для небольших экранов */
+@media (max-width: 768px) {
+    .report th, .report td {
+        padding: 8px 10px;
+    }
+
+    header .session-button {
+        font-size: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.2rem;
+    }
+}

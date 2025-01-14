@@ -43,7 +43,7 @@
                 <a href="{{ url_for('bp_queries.search_orders_by_mail') }}"><button>Поиск заказов по email</button></a>
                 {% if user_group == "manager" %}
                 <h2>Штат сотрудников:</h2>
-                <a href="{{ url_for('bp_queries.search_flights_by_countries') }}"><button>Список всех кассиров</button></a>
+                <a href="{{ url_for('bp_queries.show_cashiers') }}"><button>Список всех кассиров</button></a>
                 {% endif %}
             </div>
         </main>

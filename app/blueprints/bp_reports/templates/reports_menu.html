@@ -32,12 +32,24 @@
 
         <main>
             <div class="form-header">
-                <h2>Отчеты</h2>
+                <h2>Доступные отчеты:</h2>
             </div>
-            <div class="buttons-container">
-                <a href="{{ url_for('bp_queries.show_flights_list') }}"><button>Доходы рейсов за месяц</button></a>
-                <a href="{{ url_for('bp_queries.search_flights_by_month') }}"><button>Продажи кассиров за месяц</button></a>
-                <a href="{{ url_for('bp_queries.search_flights_by_countries') }}"><button>Продажи билетов по направлениям</button></a>
+            <div class="data-container">
+                <h2>Доходы c рейсов за месяц:</h2>
+                <div class="buttons-container">
+                    <a href="{{ url_for('bp_reports.view_reports', report_type='flights_revenue') }}"><button>Посмотреть</button></a>
+                    <a href="{{ url_for('bp_reports.create_report', report_type='flights_revenue') }}"><button>Создать</button></a>
+                </div>
+                <h2>Продажи кассиров за месяц:</h2>
+                <div class="buttons-container">
+                    <a href="{{ url_for('bp_reports.view_reports', report_type='cashiers_sales') }}"><button>Посмотреть</button></a>
+                    <a href="{{ url_for('bp_reports.create_report', report_type='cashiers_sales') }}"><button>Создать</button></a>
+                </div>
+                <h2>Продажи билетов по направлениям:</h2>
+                <div class="buttons-container">
+                    <a href="{{ url_for('bp_reports.view_reports', report_type='destinations') }}"><button>Посмотреть</button></a>
+                    <a href="{{ url_for('bp_reports.create_report', report_type='destinations') }}"><button>Создать</button></a>
+                </div>
             </div>
         </main>
     <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
