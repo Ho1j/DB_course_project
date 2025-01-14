@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='show-flights.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=True) %}
+<div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="flash-message {{ category }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endwith %}
+
+<header>
+    <div class="container">
+        <div class="logo-title">
+            <a href="{{ url_for('welcome_page') }}">
+                <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                <h1>Paperplane Airlines</h1>
+            </a>
+        </div>
+        <div class="session-button">
+            <div class="username">{{ login }}</div>
+            <a href="{{ url_for('bp_menu.menu') }}"><button>Меню</button></a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="results-header">
+        <h2>Результаты поиска рейсов</h2>
+    </div>
+    <table class="results-table">
+        <thead>
+        Внутренние рейсы:
+        <tr>
+            <th>Номер рейса</th>
+            <th>Страна вылета</th>
+            <th>Город вылета</th>
+            <th>Аэропорт вылета</th>
+            <th>Время вылета</th>
+            <th>Страна прилета</th>
+            <th>Город прилёта</th>
+            <th>Аэропорт прилёта</th>
+            <th>Время прилёта</th>
+            <th>Дни полетов</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if domestic_flights_result %}
+            {% for flight in domestic_flights_result %}
+                <tr>
+                    <td>{{ flight['flight_number'] }}</td>
+                    <td>{{ flight['departure_country'] }}</td>
+                    <td>{{ flight['departure_city'] }}</td>
+                    <td>{{ flight['departure_airport'] }}</td>
+                    <td>{{ flight['departure_time'] }}</td>
+                    <td>{{ flight['arrival_country'] }}</td>
+                    <td>{{ flight['arrival_city'] }}</td>
+                    <td>{{ flight['arrival_airport'] }}</td>
+                    <td>{{ flight['arrival_time'] }}</td>
+                    <td>{{ flight['days'] }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+    <table class="results-table">
+        <thead>
+        Внешние рейсы:
+        <tr>
+            <th>Номер рейса</th>
+            <th>Страна вылета</th>
+            <th>Город вылета</th>
+            <th>Аэропорт вылета</th>
+            <th>Время вылета</th>
+            <th>Страна прилета</th>
+            <th>Город прилёта</th>
+            <th>Аэропорт прилёта</th>
+            <th>Время прилёта</th>
+            <th>Дни полетов</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if international_flights_result %}
+            {% for flight in international_flights_result %}
+                <tr>
+                    <td>{{ flight['flight_number'] }}</td>
+                    <td>{{ flight['departure_country'] }}</td>
+                    <td>{{ flight['departure_city'] }}</td>
+                    <td>{{ flight['departure_airport'] }}</td>
+                    <td>{{ flight['departure_time'] }}</td>
+                    <td>{{ flight['arrival_country'] }}</td>
+                    <td>{{ flight['arrival_city'] }}</td>
+                    <td>{{ flight['arrival_airport'] }}</td>
+                    <td>{{ flight['arrival_time'] }}</td>
+                    <td>{{ flight['days'] }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</main>
+<script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>

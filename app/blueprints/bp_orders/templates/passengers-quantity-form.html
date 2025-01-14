@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='search-order.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=True) %}
+<div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="flash-message {{ category }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endwith %}
+
+<header>
+    <div class="container">
+        <div class="logo-title">
+            <a href="{{ url_for('welcome_page') }}">
+                <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                <h1>Paperplane Airlines</h1>
+            </a>
+        </div>
+        <div class="session-button">
+            <div class="username">{{ login }}</div>
+            <a href="{{ url_for('bp_menu.menu') }}"><button>Меню</button></a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-header">
+        <h2>Создание заказа</h2>
+    </div>
+    <div class="form-container">
+        <form action="{{ url_for('bp_orders.create_tickets_forms') }}" method=GET>
+            <h2>Мест свободно: {{ available_tickets }}</h2>
+            <input type="hidden" name="schedule-id" value="{{ schedule_id }}">
+            <div class="form-item">
+                <label for="passengers">Количество пассажиров:</label>
+                <input
+                    type="number"
+                    id="passengers"
+                    name="passengers"
+                    min="1"
+                    max="{{ available_tickets }}"
+                    placeholder="1"
+                    required
+                />
+            </div>
+            <button type="submit">Продолжить</button>
+        </form>
+    </div>
+</main>
+<script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>
