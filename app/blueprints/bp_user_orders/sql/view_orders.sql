@@ -44,4 +44,4 @@ LEFT JOIN schedules s ON t.schedule_id = s.schedule_id
 LEFT JOIN flights f ON f.flight_id = s.flight_id
 WHERE o.email = '$email'
 
-ORDER BY booking_date DESC, ticket_id;
+ORDER BY order_id DESC, ticket_id;

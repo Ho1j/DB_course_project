@@ -1,5 +1,5 @@
 from pymysql import connect
-from pymysql.err import OperationalError, IntegrityError
+from pymysql.err import OperationalError
 
 class DBContextManager:
     def __init__(self, config: dict):

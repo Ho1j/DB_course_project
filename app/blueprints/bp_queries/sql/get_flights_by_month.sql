@@ -20,6 +20,6 @@ JOIN
 JOIN
     airports arr_airport ON f.arrival_airport_id = arr_airport.airport_id
 WHERE
-    DATE_FORMAT(s.schedule_date, '%Y-%m') = '$month';
+    DATE_FORMAT(s.schedule_date, '%Y-%m') = '$month'
 ORDER BY
     s.schedule_date

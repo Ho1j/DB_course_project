@@ -23,7 +23,10 @@
                     <h1>Paperplane Airlines</h1>
                 </a>
             </div>
-            <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Меню</button></a>
+            <div class="session-button">
+                <div class="username">{{ login }}</div>
+                <a href="{{ url_for('bp_menu.menu') }}"><button>Меню</button></a>
+            </div>
         </div>
     </header>
 
@@ -54,19 +57,19 @@
                         </thead>
                         <tbody>
                             {% for ticket in order['tickets'] %}
-                                <tr>
-                                    <td>{{ ticket['flight_number'] }}</td>
-                                    <td>{{ ticket['schedule_date'] }}</td>
-                                    <td>{{ ticket['departure_time'] }}</td>
-                                    <td>{{ ticket['arrival_time'] }}</td>
-                                    <td>{{ ticket['first_name'] }}</td>
-                                    <td>{{ ticket['last_name'] }}</td>
-                                    <td>{{ ticket['passport'] }}</td>
-                                    <td>{{ ticket['birth_date'] }}</td>
-                                    <td>{{ " " if not ticket['seat_number'] else ticket['seat_number'] }}</td>
-                                    <td>{{ " " if not ticket['price'] else ticket['price'] }}</td>
-                                    <td class="status {{ ticket['status']|lower }}">{{ ticket['status'] }}</td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ ticket['flight_number'] }}</td>
+                                        <td>{{ ticket['schedule_date'] }}</td>
+                                        <td>{{ ticket['departure_time'] }}</td>
+                                        <td>{{ ticket['arrival_time'] }}</td>
+                                        <td>{{ ticket['first_name'] }}</td>
+                                        <td>{{ ticket['last_name'] }}</td>
+                                        <td>{{ ticket['passport'] }}</td>
+                                        <td>{{ ticket['birth_date'] }}</td>
+                                        <td>{{ " " if not ticket['seat_number'] else ticket['seat_number'] }}</td>
+                                        <td>{{ " " if not ticket['price'] else ticket['price'] }}</td>
+                                        <td class="status {{ ticket['status']|lower }}">{{ ticket['status'] }}</td>
+                                    </tr>
                             {% endfor %}
                         </tbody>
                     </table>

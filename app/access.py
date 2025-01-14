@@ -32,7 +32,7 @@ def group_required(f):
             return f(*args, **kwargs)
         else:
             flash('У Вас нет доступа к этому варианту использования', 'error')
-            return redirect(url_for('bp_user_menu.user_menu'))
+            return redirect(url_for('bp_menu.menu'))
     return wrapper
 
 
@@ -40,7 +40,7 @@ def not_authenticated(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if 'user_id' in session:
-            return redirect(url_for('bp_user_menu.user_menu'))
+            return redirect(url_for('bp_menu.menu'))
         return f(*args, **kwargs)
     return wrapper
 

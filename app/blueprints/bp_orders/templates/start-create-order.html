@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиабилеты Онлайн</title>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='search-order.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=True) %}
+<div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="flash-message {{ category }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endwith %}
+
+<header>
+    <div class="container">
+        <div class="logo-title">
+            <a href="{{ url_for('welcome_page') }}">
+                <img src="{{ url_for('static', filename='imgs/plane.png') }}" alt="logo">
+                <h1>Paperplane Airlines</h1>
+            </a>
+        </div>
+        <div class="session-button">
+            <div class="username">{{ login }}</div>
+            <a href="{{ url_for('bp_menu.menu') }}"><button>Меню</button></a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container-header">
+        <h2>Создание заказа</h2>
+    </div>
+    <div class="form-container">
+        <form action="{{ url_for('bp_orders.check_order_flight') }}" method=GET>
+            <div class="form-item">
+                <label for="flight-number">Номер рейса:</label>
+                <input
+                        type="text"
+                        id="flight-number"
+                        name="flight-number"
+                        maxlength="6"
+                        placeholder="XX1234"
+                        pattern="[A-Z0-9]{2}\d{1,4}"
+                        title="Введите корректный номер рейса (например, AA1234)"
+                        required
+                />
+            </div>
+            <div class="form-item">
+                <label for="schedule-date">Дата вылета:</label>
+                <input type="date" id="schedule-date" name="schedule-date" min="{{ today }}" required>
+            </div>
+            <button type="submit">Продолжить</button>
+        </form>
+    </div>
+</main>
+<script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</body>
+</html>

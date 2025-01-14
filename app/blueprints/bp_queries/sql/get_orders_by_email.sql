@@ -44,3 +44,5 @@ SELECT
     LEFT JOIN flights f ON f.flight_id = s.flight_id
     WHERE email = '$email'
 
+ORDER BY order_id DESC, status;
+

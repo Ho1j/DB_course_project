@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, current_app, session, flash, redirect, url_for
 from werkzeug.security import check_password_hash
-from database import execute_and_fetch, SqlProvider, DBContextManager
-from access import not_authenticated
 
+from database import execute_and_fetch, SqlProvider, DBContextManager
+from access import not_authenticated, auth_required
 
 bp_auth = Blueprint('bp_auth', __name__, template_folder='templates', static_folder='static')
 provider = SqlProvider('./blueprints/bp_auth/sql')
@@ -21,16 +21,19 @@ def process_user_auth():
 
     sql = provider.get_sql('auth.sql', login=login)
     auth_result = execute_and_fetch(current_app.config['DB_CONFIG'], sql)
+
     if not auth_result:
         flash('Пользователь не найден', 'error')
         return render_template('auth.html', login_type="user")
     if not check_password_hash(auth_result[0]['password'], password):
         flash('Неверный пароль', 'error')
         return render_template('auth.html', login_type="user")
+
     session['user_group'], session['login'] = auth_result[0]['user_group'], auth_result[0]['login']
     session['user_id'], session['email'] = auth_result[0]['user_id'], auth_result[0]['email']
+
     flash(f"Вы авторизовались как {session['login']}", 'success')
-    return redirect(url_for('bp_user_menu.user_menu'))
+    return redirect(url_for('bp_menu.menu'))
 
 
 @bp_auth.route('/staff', methods=['GET'])
@@ -65,7 +68,7 @@ def process_staff_auth():
                     flash(f'Кассир с user id {auth_result[0]['user_id']} не найден', 'error')
                     return render_template('auth.html', login_type="staff")
                 if cashier_info[0]['termination_date'] is not None:
-                    flash('Доступ запрещен', 'error')
+                    flash(f'Доступ кассиру {login} запрещен', 'error')
                     return render_template('auth.html', login_type="staff")
                 session['cashier_id'] = cashier_info[0]['cashier_id']
 
@@ -73,12 +76,13 @@ def process_staff_auth():
 
     except Exception as e:
         flash("Произошла ошибка при авторизации", "error")
-        return redirect(url_for('bp_user_menu.user_menu'))
+        return redirect(url_for('bp_menu.user_menu'))
 
     flash(f"Вы авторизовались как {session['login']}", 'success')
-    return redirect(url_for('bp_user_menu.user_menu'))
+    return redirect(url_for('bp_menu.menu'))
 
 @bp_auth.route('/logout', methods=['GET'])
+@auth_required
 def process_logout():
     session.clear()
     flash('Вы вышли из аккаунта', 'success')

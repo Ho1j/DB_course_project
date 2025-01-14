@@ -1,21 +1,19 @@
 from calendar import month
 from datetime import datetime
 from flask import Blueprint, render_template, request, current_app, session, redirect, flash, url_for
+
 from database import execute_and_fetch, SqlProvider
-import access
+from access import group_required
 
 
 bp_reports = Blueprint('bp_reports', __name__, template_folder='templates', static_folder='static')
 provider = SqlProvider('./sql')
 
-reports = [{'id': 1, 'name': 'Все заказы за месяц и год'}]
 
-
-@bp_reports.route('/myreports')
-@access.auth_required
-@access.group_required
-def reports_choice():
-    return render_template('reports_choice.html', reports=reports)
+@bp_reports.route('/menu')
+@group_required
+def reports_menu():
+    return render_template('reports_menu.html', login=session.get('login'))
 
 @bp_reports.route('/create_1', methods=['GET', 'POST'])
 def create_1():

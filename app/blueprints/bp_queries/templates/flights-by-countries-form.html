@@ -25,20 +25,24 @@
         </div>
         <div class="session-button">
             <div class="username">{{ login }}</div>
-            <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Аккаунт</button></a>
+            <a href="{{ url_for('bp_menu.menu') }}"><button>Аккаунт</button></a>
         </div>
     </div>
 </header>
 
 <main>
     <div class="container-header">
-        <h2>Запрос рейсов по месяцам</h2>
+        <h2>Поиск рейсов из страны в страну</h2>
     </div>
     <div class="form-container">
-        <form action="{{ url_for('bp_queries.show_flights_by_month') }}" method=GET>
+        <form action="{{ url_for('bp_queries.show_flights_by_countries') }}" method=GET>
             <div class="form-item">
-                <label for="month-picker">Выберите месяц:</label>
-                <input type="month" id="month-picker" name="month">
+                <label for="departure-country">Страна вылета:</label>
+                <input type="text" name="departure-country" id="departure-country" required title="Введите страну на латинице">
+            </div>
+            <div class="form-item">
+                <label for="arrival-country">Страна прилета:</label>
+                <input type="text" name="arrival-country" id="arrival-country" required title="Введите страну на латинице">
             </div>
             <button type="submit">Поиск</button>
         </form>

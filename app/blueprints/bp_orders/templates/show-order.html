@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Авиабилеты Онлайн</title>
     <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('.static', filename='show-orders.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='show-order.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
     {% with messages = get_flashed_messages(with_categories=True) %}
@@ -23,7 +23,10 @@
                     <h1>Paperplane Airlines</h1>
                 </a>
             </div>
-            <a href="{{ url_for('bp_user_menu.user_menu') }}"><button>Меню</button></a>
+            <div class="session-button">
+                    <div class="username">{{ login }}</div>
+                    <a href="{{ url_for('bp_menu.menu') }}"><button>Меню</button></a>
+            </div>
         </div>
     </header>
 
@@ -36,7 +39,7 @@
                 <h2>Заказ №{{ order_id }} пользователя {{ order['email'] }} от {{ order['booking_date'] }}</h2>
                 <h3>Редактировать билеты:</h3>
                 {% if order['tickets'] %}
-                    <form action="{{ url_for('bp_cashier_orders.change_order', order_id=order_id) }}" method="POST">
+                    <form action="{{ url_for('bp_orders.change_order', order_id=order_id) }}" method="POST">
                         <input type="hidden" name="ticket_count" value="{{ order['tickets']|length }}">
                         <table class="tickets">
                             <thead>
@@ -61,7 +64,8 @@
                                             <input
                                             type="hidden"
                                             name="tickets[{{ loop.index }}][ticket_id]"
-                                            value="{{ ticket['ticket_id'] }}">
+                                            value="{{ ticket['ticket_id'] }}"
+                                            {% if ticket['status'] == 'canceled' %}disabled{% endif %}>
                                             {{ ticket['flight_number'] }}
                                         </td>
                                         <td>{{ ticket['schedule_date'] }}</td>
@@ -74,6 +78,9 @@
                                                 id="first_name_{{ loop.index }}"
                                                 name="tickets[{{ loop.index }}][first_name]"
                                                 value="{{ ticket['first_name'] }}"
+                                                pattern="[A-Za-z]+"
+                                                placeholder="Введите имя (латиница)"
+                                                {% if ticket['status'] == 'canceled' %}disabled{% endif %}
                                                 required>
                                         </td>
                                         <td>
@@ -83,6 +90,9 @@
                                                 id="last_name_{{ loop.index }}"
                                                 name="tickets[{{ loop.index }}][last_name]"
                                                 value="{{ ticket['last_name'] }}"
+                                                pattern="[A-Za-z]+"
+                                                placeholder="Введите фамилию (латиница)"
+                                                {% if ticket['status'] == 'canceled' %}disabled{% endif %}
                                                 required>
                                         </td>
                                         <td>
@@ -92,6 +102,10 @@
                                                 id="passport_{{ loop.index }}"
                                                 name="tickets[{{ loop.index }}][passport]"
                                                 value="{{ ticket['passport'] }}"
+                                                pattern="\d{9}"
+                                                title="Введите 9 цифр"
+                                                placeholder="Введите номер паспорта (9 цифр)"
+                                                {% if ticket['status'] == 'canceled' %}disabled{% endif %}
                                                 required>
                                         </td>
                                         <td>
@@ -101,6 +115,8 @@
                                                 id="birth_date_{{ loop.index }}"
                                                 name="tickets[{{ loop.index }}][birth_date]"
                                                 value="{{ ticket['birth_date'] }}"
+                                                max="{{ today }}"
+                                                {% if ticket['status'] == 'canceled' %}disabled{% endif %}
                                                 required>
                                         </td>
                                         <td>
@@ -109,8 +125,10 @@
                                                 type="text"
                                                 id="seat_number_{{ loop.index }}"
                                                 name="tickets[{{ loop.index }}][seat_number]"
-                                                value="{{ ' ' if not ticket['seat_number'] else ticket['seat_number'] }}"
-                                                required>
+                                                value="{{ '' if not ticket['seat_number'] else ticket['seat_number'] }}"
+                                                placeholder="e.g., 12A"
+                                                pattern="([1-9][0-9]?|[1-9])[A-Z]"
+                                                {% if ticket['status'] == 'canceled' %}disabled{% endif %}>
                                         </td>
                                         <td>
                                             <label for="price_{{ loop.index }}"></label>
@@ -118,27 +136,29 @@
                                                 type="number"
                                                 id="price_{{ loop.index }}"
                                                 name="tickets[{{ loop.index }}][price]"
-                                                value="{{ '' if not ticket['price'] else ticket['price'] }}">
+                                                value="{{ '' if not ticket['price'] else ticket['price'] }}"
+                                            {% if ticket['status'] == 'canceled' %}disabled{% endif %}>
                                         </td>
-                                        <td>
+                                        <td class="status {{ ticket['status']|lower }}">
+                                            {% if ticket['status'] == 'canceled' %}
+                                                    {{ ticket['status'] }}
+                                            {% else %}
                                             <label for="status_{{ loop.index }}"></label>
                                             <select
                                                 id="status_{{ loop.index }}"
                                                 name="tickets[{{ loop.index }}][status]"
                                                 required>
-                                                <option value="booked" {% if ticket['status'] == 'booked' %}selected{% endif %}>Забронирован</option>
                                                 <option value="confirmed" {% if ticket['status'] == 'confirmed' %}selected{% endif %}>Подтвержден</option>
-                                                <option value="canceled" {% if ticket['status'] == 'canceled' %}selected{% endif %}>Отменен</option>
+                                                <option value="canceled">Отменен</option>
                                             </select>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                         <div class="buttons">
-                            <button class="confirm" type="submit" name="action" value="confirm">Подтвердить заказ</button>
-                            <button class="change" type="submit" name="action" value="change">Изменить заказ</button>
-                            <button class="cancel" type="submit" name="action" value="cancel">Отменить заказ</button>
+                            <button class="change" type="submit">Изменить заказ</button>
                         </div>
                     </form>
                 {% else %}

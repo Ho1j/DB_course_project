@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Авиабилеты Онлайн</title>
     <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ url_for('.static', filename='queries-menu.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('.static', filename='user-menu.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
         {% with messages = get_flashed_messages(with_categories=True) %}
@@ -25,25 +25,24 @@
                 </div>
                 <div class="session-button">
                     <div class="username">{{ login }}</div>
-                    <a href="{{ url_for('bp_menu.menu') }}"><button>Меню</button></a>
+                    <a href="{{ url_for('bp_auth.process_logout') }}"><button>Выйти</button></a>
                 </div>
             </div>
         </header>
 
         <main>
             <div class="form-header">
-                <h2>Меню запросов</h2>
+                <h2>Меню действий</h2>
             </div>
             <div class="buttons-container">
-                <h2>Рейсы:</h2>
-                <a href="{{ url_for('bp_queries.show_flights_list') }}"><button>Все рейсы</button></a>
-                <a href="{{ url_for('bp_queries.search_flights_by_month') }}"><button>Все перелеты за указанный месяц</button></a>
-                <a href="{{ url_for('bp_queries.search_flights_by_countries') }}"><button>Рейсы из страны в страну</button></a>
-                <h2>Заказы:</h2>
-                <a href="{{ url_for('bp_queries.search_orders_by_mail') }}"><button>Поиск заказов по email</button></a>
-                {% if user_group == "manager" %}
-                <h2>Штат сотрудников:</h2>
-                <a href="{{ url_for('bp_queries.search_flights_by_countries') }}"><button>Список всех кассиров</button></a>
+                {% if user_group == "user" %}
+                <a href="{{ url_for('bp_user_orders.user_orders') }}"><button>Мои авиабилеты</button></a>
+                {% elif user_group == "cashier" %}
+                <a href="{{ url_for('bp_orders.orders_menu') }}"><button>Работа с заказами</button></a>
+                <a href="{{ url_for('bp_queries.queries_menu') }}"><button>Работа с запросами</button></a>
+                {% elif user_group == "manager" %}
+                <a href="{{ url_for('bp_queries.queries_menu') }}"><button>Работа с запросами</button></a>
+                <a href="{{ url_for('bp_reports.reports_menu') }}"><button>Работа с отчётами</button></a>
                 {% endif %}
             </div>
         </main>

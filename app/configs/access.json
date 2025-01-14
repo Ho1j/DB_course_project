@@ -1,18 +1,13 @@
 {
   "user": [
-    "bp_search",
-    "bp_booking",
     "bp_user_orders"
   ],
   "cashier": [
-    "bp_search",
-    "bp_booking",
-    "bp_cashier_orders",
     "bp_queries",
+    "bp_orders",
     "bp_reports"
   ],
   "manager": [
-    "bp_auth",
     "bp_queries",
     "bp_reports",
     "bp_manager"

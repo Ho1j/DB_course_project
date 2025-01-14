@@ -10,7 +10,8 @@ SELECT
     arr_airport.city AS arrival_city,
     arr_airport.country AS arrival_country,
     f.ticket_price,
-    f.arrival_time AS arrival_time
+    f.arrival_time AS arrival_time,
+    f.days
 FROM
     flights f
 JOIN
