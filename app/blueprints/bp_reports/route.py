@@ -65,6 +65,7 @@ def create_monthly_report():
 @bp_reports.route('/view', methods=['GET'])
 @group_required
 def view_reports():
+    #добавить отлов ошибок
     report_type = request.args.get('report_type')
     sql = provider.get_sql('view_reports.sql', report_type=report_type + '_report')
     result = execute_and_fetch(current_app.config['DB_CONFIG'], sql)
@@ -79,6 +80,7 @@ def view_report():
     report_month = request.args.get('report-month')
     report_month_full = report_month + '-01'
 
+    #добавить отлов ошибок
     if report_type == 'flights_revenue':
         sql = provider.get_sql('view_flights_revenue_report.sql', report_month_full=report_month_full)
         result = execute_and_fetch(current_app.config['DB_CONFIG'], sql)

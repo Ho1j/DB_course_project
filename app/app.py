@@ -31,6 +31,7 @@ app.register_blueprint(bp_orders, url_prefix='/orders')
 def welcome_page():
     return render_template('index.html', user_id=session.get('user_id'), login=session.get('login'))
 
+
 if __name__ == '__main__':
     app.run(host = '127.0.0.1', port = 5003, debug = True)
 

@@ -1,5 +1,7 @@
 ﻿from flask import Blueprint, render_template, request, current_app, flash, redirect, url_for
 from werkzeug.security import generate_password_hash
+from pymysql import MySQLError
+
 from database import execute_and_fetch, SqlProvider
 from access import not_authenticated
 
@@ -32,7 +34,14 @@ def process_user_reg():
     hashed_password = generate_password_hash(password)
 
     sql = provider.get_sql('reg.sql', login=login, hashed_password=hashed_password, email=email)
-    execute_and_fetch(current_app.config['DB_CONFIG'], sql)
+    try:
+        execute_and_fetch(current_app.config['DB_CONFIG'], sql)
+    except MySQLError as e:
+        if e.args[0] == 1062:
+            flash("Пользователь с такими данными уже существует", "error")
+        else:
+            flash("Произошла ошибка при регистрации", "error")
+        return redirect(url_for('bp_reg.user_reg'))
 
     flash('Вы успешно зарегистрировались!', 'success')
     return redirect(url_for('bp_auth.user_auth'))
