@@ -17,5 +17,5 @@ JOIN
 JOIN
     airports arr_airport ON f.arrival_airport_id = arr_airport.airport_id
 WHERE
-    dep_airport.country = 'Russia' AND arr_airport.country != 'Russia'
+    dep_airport.country != 'Russia' OR arr_airport.country != 'Russia'
 ORDER BY dep_airport.city

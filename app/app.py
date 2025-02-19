@@ -13,7 +13,7 @@ from blueprints.bp_orders.route import bp_orders
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
-app.config['DB_CONFIG'] = json.load(open('configs/db_config_win.json'))
+app.config['DB_CONFIG'] = json.load(open('configs/db_config_macos.json'))
 app.config['ACCESS_CONFIG'] = json.load(open('configs/access.json'))
 app.config['CACHE_CONFIG'] = json.load(open('configs/cache.json'))
 

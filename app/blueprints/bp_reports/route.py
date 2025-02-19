@@ -65,11 +65,13 @@ def create_monthly_report():
 @bp_reports.route('/view', methods=['GET'])
 @group_required
 def view_reports():
-    #добавить отлов ошибок
     report_type = request.args.get('report_type')
     sql = provider.get_sql('view_reports.sql', report_type=report_type + '_report')
     result = execute_and_fetch(current_app.config['DB_CONFIG'], sql)
-    print(result)
+    if not result:
+        flash("Отчетов не существует", "error")
+        return redirect(url_for('bp_reports.reports_menu'))
+
     return render_template('view_reports.html', report_type=report_type, result=result)
 
 
